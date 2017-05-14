@@ -7,6 +7,8 @@ function renderCheckbox(column, query, onQueryChange) {
       type="checkbox"
       className="column-filter-input"
       name={column.property}
+      value={query[column.property] || false}
+      onChange={onQueryChange}
     /> :
     '';
 }
@@ -53,4 +55,4 @@ SearchColumns.defaultProps = {
   query: {}
 };
 
-  export default SearchColumns;
+export default SearchColumns;
