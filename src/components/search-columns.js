@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function renderCheckbox(column) {
+function renderCheckbox(column, query, onQueryChange) {
   return column && column.property && column.checkbox ?
     <input
       type="checkbox"
@@ -11,7 +11,7 @@ function renderCheckbox(column) {
     '';
 }
 
-function renderText(column) {
+function renderText(column, query, onQueryChange) {
   return column && column.property && !column.checkbox ?
     <input
       onChange={onQueryChange}
@@ -35,8 +35,8 @@ const SearchColumns = ({ columns, query, onChange }) => {
     <tr>
       {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
-          {renderCheckbox(column)}
-          {renderText(column)}
+          {renderCheckbox(column, query, onQueryChange)}
+          {renderText(column, query, onQueryChange)}
         </th>
       ))}
     </tr>
