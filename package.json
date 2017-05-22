@@ -10,7 +10,7 @@
     "test:lint": "eslint . --ext .js --cache",
     "test:watch": "jest --watch --",
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
-    "preversion": "npm run test:all && npm run dist:build && git commit --allow-empty -am \"Update dist\""
+    "preversion": "npm run test:all && npm run build && git commit --allow-empty -am \"Update dist\""
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,12 @@
     ],
     "moduleDirectories": [
       "node_modules"
+    ],
+    "setupFiles": [
+      "<rootDir>/__tests__/setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/setup.js"
     ]
   },
   "author": "Juho Vepsalainen <bebraw@gmail.com> (http://github.com/bebraw)",
