@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function renderCheckbox(column, query, onQueryChange) {
+function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ?
     <input
       type="checkbox"
-      className="column-filter-input ant-checkbox-input"
+      className="column-filter-input"
       name={column.property}
-      value={query[column.property] || false}
-      onChange={onQueryChange}
+      checked={query[column.property] || false}
+      onChange={onCheckChange}
     /> :
     '';
 }
@@ -26,6 +26,7 @@ function renderText(column, query, onQueryChange) {
 }
 
 const SearchColumns = ({ columns, query, onChange }) => {
+
   const onQueryChange = (event) => {
     onChange({
       ...query,
@@ -33,11 +34,18 @@ const SearchColumns = ({ columns, query, onChange }) => {
     });
   };
 
+  const onCheckChange = (event) => {
+    onChange({
+      ...query,
+      [event.target.name]: event.target.checked
+    });
+  }
+
   return (
     <tr>
       {columns.map((column, i) => (
-        <th key={`${column.property || i}-column-filter`} className={column.checkbox ? 'column-filter ant-checkbox' : 'column-filter'}>
-          {renderCheckbox(column, query, onQueryChange)}
+        <th key={`${column.property || i}-column-filter`} className="column-filter">
+          {renderCheckbox(column, query, onCheckChange)}
           {renderText(column, query, onQueryChange)}
         </th>
       ))}

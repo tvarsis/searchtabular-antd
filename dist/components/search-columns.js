@@ -18,13 +18,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function renderCheckbox(column, query, onQueryChange) {
+function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? _react2.default.createElement('input', {
     type: 'checkbox',
     className: 'column-filter-input',
     name: column.property,
-    value: query[column.property] || false,
-    onChange: onQueryChange
+    checked: query[column.property] || false,
+    onChange: onCheckChange
   }) : '';
 }
 
@@ -43,8 +43,13 @@ var SearchColumns = function SearchColumns(_ref) {
       query = _ref.query,
       onChange = _ref.onChange;
 
+
   var onQueryChange = function onQueryChange(event) {
     onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.value)));
+  };
+
+  var onCheckChange = function onCheckChange(event) {
+    onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.checked)));
   };
 
   return _react2.default.createElement(
@@ -54,7 +59,7 @@ var SearchColumns = function SearchColumns(_ref) {
       return _react2.default.createElement(
         'th',
         { key: (column.property || i) + '-column-filter', className: 'column-filter' },
-        renderCheckbox(column, query, onQueryChange),
+        renderCheckbox(column, query, onCheckChange),
         renderText(column, query, onQueryChange)
       );
     })
