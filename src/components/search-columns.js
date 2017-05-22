@@ -26,7 +26,6 @@ function renderText(column, query, onQueryChange) {
 }
 
 const SearchColumns = ({ columns, query, onChange }) => {
-
   const onQueryChange = (event) => {
     onChange({
       ...query,
@@ -39,7 +38,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
       ...query,
       [event.target.name]: event.target.checked
     });
-  }
+  };
 
   return (
     <tr>
