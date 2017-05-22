@@ -14,14 +14,15 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _antd = require('antd');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function renderCheckbox(column, query, onCheckChange) {
-  return column && column.property && column.checkbox ? _react2.default.createElement('input', {
-    type: 'checkbox',
-    className: 'column-filter-input',
+  return column && column.property && column.checkbox ? _react2.default.createElement(_antd.Checkbox, {
+    indeterminate: typeof query[column.property] === 'undefined',
     name: column.property,
     checked: query[column.property] || false,
     onChange: onCheckChange
@@ -43,13 +44,12 @@ var SearchColumns = function SearchColumns(_ref) {
       query = _ref.query,
       onChange = _ref.onChange;
 
-
   var onQueryChange = function onQueryChange(event) {
     onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.value)));
   };
 
   var onCheckChange = function onCheckChange(event) {
-    onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.checked)));
+    onChange(_extends({}, query, _defineProperty({}, event.target.name, query[event.target.name] === false && event.target.checked ? undefined : event.target.checked)));
   };
 
   return _react2.default.createElement(

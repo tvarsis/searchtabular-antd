@@ -2,7 +2,7 @@
   "name": "searchtabular",
   "version": "1.5.0",
   "description": "Search utilities",
-  "main": "dist/index.js",
+  "main": "dist",
   "scripts": {
     "test:all": "npm run test:lint && npm test",
     "test": "jest --",
@@ -12,7 +12,6 @@
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "preversion": "npm run test:all && npm run dist:build && git commit --allow-empty -am \"Update dist\""
   },
-  "main": "dist",
   "repository": {
     "type": "git",
     "url": "https://github.com/reactabular/searchtabular.git"
@@ -39,7 +38,9 @@
   "bugs": {
     "url": "https://github.com/reactabular/searchtabular/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "antd": "^2.10.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",

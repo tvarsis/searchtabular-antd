@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Checkbox } from 'antd';
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ?
-    <input
-      type="checkbox"
-      className="column-filter-input"
+   <Checkbox
+      indeterminate={typeof query[column.property] === 'undefined'}
       name={column.property}
       checked={query[column.property] || false}
       onChange={onCheckChange}
@@ -36,7 +36,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
   const onCheckChange = (event) => {
     onChange({
       ...query,
-      [event.target.name]: event.target.checked
+      [event.target.name]: ((query[event.target.name] === false) && event.target.checked) ? undefined : event.target.checked
     });
   };
 
