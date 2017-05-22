@@ -5,7 +5,7 @@ function renderCheckbox(column, query, onQueryChange) {
   return column && column.property && column.checkbox ?
     <input
       type="checkbox"
-      className="column-filter-input"
+      className="column-filter-input ant-checkbox-input"
       name={column.property}
       value={query[column.property] || false}
       onChange={onQueryChange}
