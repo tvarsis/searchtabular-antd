@@ -21,14 +21,14 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
         <DatePicker
           style={{ width: '100%' }}
           value={queryVal.min}
-          onChange={onMinDateChange}
+          onChange={date => onMinDateChange(column.property, date)}
         />
       </div>
       <div style={{ marginTop: 10 }}>
         <DatePicker
           style={{ width: '100%' }}
           value={queryVal.max}
-          onChange={onMaxDateChange}
+          onChange={date => onMaxDateChange(column.property, date)}
         />
       </div>
     </div>
@@ -65,12 +65,30 @@ const SearchColumns = ({ columns, query, onChange }) => {
     });
   };
 
+  const onMinDateChange = (name, date) => {
+    const dateFilter = query[name] || {};
+    dateFilter.min = date;
+    onChange({
+      ...query,
+      [name]: dateFilter
+    });
+  };
+
+  const onMaxDateChange = (name, date) => {
+    const dateFilter = query[name] || {};
+    dateFilter.max = date;
+    onChange({
+      ...query,
+      [name]: dateFilter
+    });
+  };
+
   return (
     <tr>
       {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
           {renderCheckbox(column, query, onCheckChange)}
-          {renderDate(column, query, null, null)}
+          {renderDate(column, query, onMinDateChange, onMaxDateChange)}
           {renderText(column, query, onQueryChange)}
         </th>
       ))}
