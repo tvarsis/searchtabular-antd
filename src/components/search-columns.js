@@ -19,6 +19,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     <div>
       <div>
         <DatePicker
+          size="small"
           style={{ width: '100%' }}
           value={queryVal.min}
           onChange={date => onMinDateChange(column.property, date)}
@@ -26,6 +27,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       </div>
       <div style={{ marginTop: 10 }}>
         <DatePicker
+          size="small"
           style={{ width: '100%' }}
           value={queryVal.max}
           onChange={date => onMaxDateChange(column.property, date)}
@@ -36,8 +38,35 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     '';
 }
 
+function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
+  const queryVal = query[column.property] || {};
+  return column && column.property && (column.type === 'number') ? (
+    <div>
+      <div>
+        <input
+          type="number"
+          className="column-filter-input"
+          name={column.property}
+          value={queryVal.min || ''}
+          onChange={onMinNumberChange}
+        />
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <input
+          type="number"
+          className="column-filter-input"
+          name={column.property}
+          value={queryVal.max || ''}
+          onChange={onMaxNumberChange}
+        />
+      </div>
+    </div>
+    ) :
+    '';
+}
+
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && (column.type !== 'date') ?
+  return column && column.property && !column.checkbox && (column.type !== 'date') && (column.type !== 'number') ?
     <input
       onChange={onQueryChange}
       className="column-filter-input"
@@ -83,12 +112,33 @@ const SearchColumns = ({ columns, query, onChange }) => {
     });
   };
 
+  const onMinNumberChange = (event) => {
+    const { name, value } = event.target;
+    const rangeFilter = query[name] || {};
+    rangeFilter.min = value;
+    onChange({
+      ...query,
+      [name]: rangeFilter
+    });
+  };
+
+  const onMaxNumberChange = (event) => {
+    const { name, value } = event.target;
+    const rangeFilter = query[name] || {};
+    rangeFilter.max = value;
+    onChange({
+      ...query,
+      [name]: rangeFilter
+    });
+  };
+
   return (
     <tr>
       {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
           {renderCheckbox(column, query, onCheckChange)}
           {renderDate(column, query, onMinDateChange, onMaxDateChange)}
+          {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}
           {renderText(column, query, onQueryChange)}
         </th>
       ))}
