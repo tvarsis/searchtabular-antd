@@ -29,8 +29,34 @@ function renderCheckbox(column, query, onCheckChange) {
   }) : '';
 }
 
+function renderDate(column, query, onMinDateChange, onMaxDateChange) {
+  var queryVal = query[column.property] || {};
+  return column && column.property && column.type === 'date' ? _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement(_antd.DatePicker, {
+        style: { width: '100%' },
+        value: queryVal.min,
+        onChange: onMinDateChange
+      })
+    ),
+    _react2.default.createElement(
+      'div',
+      { style: { marginTop: 10 } },
+      _react2.default.createElement(_antd.DatePicker, {
+        style: { width: '100%' },
+        value: queryVal.max,
+        onChange: onMaxDateChange
+      })
+    )
+  ) : '';
+}
+
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox ? _react2.default.createElement('input', {
+  return column && column.property && !column.checkbox && column.type !== 'date' ? _react2.default.createElement('input', {
     onChange: onQueryChange,
     className: 'column-filter-input',
     name: column.property,
@@ -60,6 +86,7 @@ var SearchColumns = function SearchColumns(_ref) {
         'th',
         { key: (column.property || i) + '-column-filter', className: 'column-filter' },
         renderCheckbox(column, query, onCheckChange),
+        renderDate(column, query, null, null),
         renderText(column, query, onQueryChange)
       );
     })

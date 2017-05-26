@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'antd';
+import { Checkbox, DatePicker } from 'antd';
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ?
@@ -13,8 +13,31 @@ function renderCheckbox(column, query, onCheckChange) {
     '';
 }
 
+function renderDate(column, query, onMinDateChange, onMaxDateChange) {
+  const queryVal = query[column.property] || {};
+  return column && column.property && (column.type === 'date') ? (
+    <div>
+      <div>
+        <DatePicker
+          style={{ width: '100%' }}
+          value={queryVal.min}
+          onChange={onMinDateChange}
+        />
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <DatePicker
+          style={{ width: '100%' }}
+          value={queryVal.max}
+          onChange={onMaxDateChange}
+        />
+      </div>
+    </div>
+    ) :
+    '';
+}
+
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox ?
+  return column && column.property && !column.checkbox && (column.type !== 'date') ?
     <input
       onChange={onQueryChange}
       className="column-filter-input"
@@ -47,6 +70,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
       {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
           {renderCheckbox(column, query, onCheckChange)}
+          {renderDate(column, query, null, null)}
           {renderText(column, query, onQueryChange)}
         </th>
       ))}
