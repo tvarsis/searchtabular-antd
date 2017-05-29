@@ -20,6 +20,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       <div>
         <DatePicker
           size="small"
+          placeholder="From date"
           style={{ width: '100%' }}
           value={queryVal.min}
           onChange={date => onMinDateChange(column.property, date)}
@@ -28,6 +29,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       <div style={{ marginTop: 10 }}>
         <DatePicker
           size="small"
+          placeholder="To date"
           style={{ width: '100%' }}
           value={queryVal.max}
           onChange={date => onMaxDateChange(column.property, date)}

@@ -39,6 +39,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       null,
       _react2.default.createElement(_antd.DatePicker, {
         size: 'small',
+        placeholder: 'From date',
         style: { width: '100%' },
         value: queryVal.min,
         onChange: function onChange(date) {
@@ -51,6 +52,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       { style: { marginTop: 10 } },
       _react2.default.createElement(_antd.DatePicker, {
         size: 'small',
+        placeholder: 'To date',
         style: { width: '100%' },
         value: queryVal.max,
         onChange: function onChange(date) {
