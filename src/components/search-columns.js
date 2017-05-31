@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox, DatePicker } from 'antd';
+import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ?
@@ -19,7 +19,6 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     <div>
       <div>
         <DatePicker
-          size="small"
           placeholder="From date"
           style={{ width: '100%' }}
           value={queryVal.min}
@@ -28,7 +27,6 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       </div>
       <div style={{ marginTop: 10 }}>
         <DatePicker
-          size="small"
           placeholder="To date"
           style={{ width: '100%' }}
           value={queryVal.max}
@@ -36,7 +34,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
         />
       </div>
     </div>
-    ) :
+  ) :
     '';
 }
 
@@ -45,35 +43,32 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   return column && column.property && (column.type === 'number') ? (
     <div>
       <div>
-        <input
-          type="number"
+        <InputNumber
           placeholder="From"
-          className="column-filter-input"
           name={column.property}
+          style={{ width: '100%' }}
           value={queryVal.min || ''}
-          onChange={onMinNumberChange}
+          onChange={value => onMinNumberChange(column.property, value)}
         />
       </div>
       <div style={{ marginTop: 10 }}>
-        <input
-          type="number"
+        <InputNumber
           placeholder="To"
-          className="column-filter-input"
           name={column.property}
+          style={{ width: '100%' }}
           value={queryVal.max || ''}
-          onChange={onMaxNumberChange}
+          onChange={value => onMaxNumberChange(column.property, value)}
         />
       </div>
     </div>
-    ) :
+  ) :
     '';
 }
 
 function renderText(column, query, onQueryChange) {
   return column && column.property && !column.checkbox && (column.type !== 'date') && (column.type !== 'number') ?
-    <input
+    <Input
       onChange={onQueryChange}
-      className="column-filter-input"
       name={column.property}
       placeholder={column.filterPlaceholder || ''}
       value={query[column.property] || ''}
@@ -93,8 +88,8 @@ const SearchColumns = ({ columns, query, onChange }) => {
     onChange({
       ...query,
       [event.target.name]: ((query[event.target.name] === false) && event.target.checked) ?
-      undefined :
-      event.target.checked
+        undefined :
+        event.target.checked
     });
   };
 
@@ -116,24 +111,31 @@ const SearchColumns = ({ columns, query, onChange }) => {
     });
   };
 
-  const onMinNumberChange = (event) => {
-    const { name, value } = event.target;
-    const rangeFilter = query[name] || {};
-    rangeFilter.min = value;
-    onChange({
-      ...query,
-      [name]: rangeFilter
-    });
+  const isNumber = (value) => {
+    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+    return ((!isNaN(value) && reg.test(value)) || value === '' || value === '-');
   };
 
-  const onMaxNumberChange = (event) => {
-    const { name, value } = event.target;
-    const rangeFilter = query[name] || {};
-    rangeFilter.max = value;
-    onChange({
-      ...query,
-      [name]: rangeFilter
-    });
+  const onMinNumberChange = (name, value) => {
+    if (isNumber(value)) {
+      const rangeFilter = query[name] || {};
+      rangeFilter.min = value;
+      onChange({
+        ...query,
+        [name]: rangeFilter
+      });
+    }
+  };
+
+  const onMaxNumberChange = (name, value) => {
+    if (isNumber(value)) {
+      const rangeFilter = query[name] || {};
+      rangeFilter.max = value;
+      onChange({
+        ...query,
+        [name]: rangeFilter
+      });
+    }
   };
 
   return (

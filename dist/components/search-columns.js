@@ -38,7 +38,6 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       'div',
       null,
       _react2.default.createElement(_antd.DatePicker, {
-        size: 'small',
         placeholder: 'From date',
         style: { width: '100%' },
         value: queryVal.min,
@@ -51,7 +50,6 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       'div',
       { style: { marginTop: 10 } },
       _react2.default.createElement(_antd.DatePicker, {
-        size: 'small',
         placeholder: 'To date',
         style: { width: '100%' },
         value: queryVal.max,
@@ -71,34 +69,35 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
     _react2.default.createElement(
       'div',
       null,
-      _react2.default.createElement('input', {
-        type: 'number',
+      _react2.default.createElement(_antd.InputNumber, {
         placeholder: 'From',
-        className: 'column-filter-input',
         name: column.property,
+        style: { width: '100%' },
         value: queryVal.min || '',
-        onChange: onMinNumberChange
+        onChange: function onChange(value) {
+          return onMinNumberChange(column.property, value);
+        }
       })
     ),
     _react2.default.createElement(
       'div',
       { style: { marginTop: 10 } },
-      _react2.default.createElement('input', {
-        type: 'number',
+      _react2.default.createElement(_antd.InputNumber, {
         placeholder: 'To',
-        className: 'column-filter-input',
         name: column.property,
+        style: { width: '100%' },
         value: queryVal.max || '',
-        onChange: onMaxNumberChange
+        onChange: function onChange(value) {
+          return onMaxNumberChange(column.property, value);
+        }
       })
     )
   ) : '';
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== 'date' && column.type !== 'number' ? _react2.default.createElement('input', {
+  return column && column.property && !column.checkbox && column.type !== 'date' && column.type !== 'number' ? _react2.default.createElement(_antd.Input, {
     onChange: onQueryChange,
-    className: 'column-filter-input',
     name: column.property,
     placeholder: column.filterPlaceholder || '',
     value: query[column.property] || ''
@@ -130,24 +129,25 @@ var SearchColumns = function SearchColumns(_ref) {
     onChange(_extends({}, query, _defineProperty({}, name, dateFilter)));
   };
 
-  var onMinNumberChange = function onMinNumberChange(event) {
-    var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-
-    var rangeFilter = query[name] || {};
-    rangeFilter.min = value;
-    onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
+  var isNumber = function isNumber(value) {
+    var reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+    return !isNaN(value) && reg.test(value) || value === '' || value === '-';
   };
 
-  var onMaxNumberChange = function onMaxNumberChange(event) {
-    var _event$target2 = event.target,
-        name = _event$target2.name,
-        value = _event$target2.value;
+  var onMinNumberChange = function onMinNumberChange(name, value) {
+    if (isNumber(value)) {
+      var rangeFilter = query[name] || {};
+      rangeFilter.min = value;
+      onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
+    }
+  };
 
-    var rangeFilter = query[name] || {};
-    rangeFilter.max = value;
-    onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
+  var onMaxNumberChange = function onMaxNumberChange(name, value) {
+    if (isNumber(value)) {
+      var rangeFilter = query[name] || {};
+      rangeFilter.max = value;
+      onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
+    }
   };
 
   return _react2.default.createElement(
