@@ -73,6 +73,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
       null,
       _react2.default.createElement('input', {
         type: 'number',
+        placeholder: 'From',
         className: 'column-filter-input',
         name: column.property,
         value: queryVal.min || '',
@@ -84,6 +85,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
       { style: { marginTop: 10 } },
       _react2.default.createElement('input', {
         type: 'number',
+        placeholder: 'To',
         className: 'column-filter-input',
         name: column.property,
         value: queryVal.max || '',

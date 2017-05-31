@@ -47,6 +47,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
       <div>
         <input
           type="number"
+          placeholder="From"
           className="column-filter-input"
           name={column.property}
           value={queryVal.min || ''}
@@ -56,6 +57,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
       <div style={{ marginTop: 10 }}>
         <input
           type="number"
+          placeholder="To"
           className="column-filter-input"
           name={column.property}
           value={queryVal.max || ''}
