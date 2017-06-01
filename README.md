@@ -1,8 +1,49 @@
-[![build status](https://secure.travis-ci.org/reactabular/searchtabular.svg)](http://travis-ci.org/reactabular/searchtabular) [![bitHound Score](https://www.bithound.io/github/reactabular/searchtabular/badges/score.svg)](https://www.bithound.io/github/reactabular/searchtabular) [![codecov](https://codecov.io/gh/reactabular/searchtabular/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/searchtabular)
-
 # Searchtabular - Search utilities
 
 Searchtabular comes with search helpers. It consists of search algorithms that can be applied to the rows. Just like with sorting, you have to apply it to the rows just before rendering. A column is considered searchable in case it has a unique `property` defined.
+
+## Searchtabular Antd
+The original Searchtabular package has only one type of filter - text filter. Date filter, number filter, boolean filter was not possible. To implement these advanced filters, the searchtabular-antd package uses antd components. 
+* Input - text filter
+* InputNumber - range filter for numbers
+* DatePicker - date filter
+* Checkbox - boolean filter
+
+To use range filter for numbers, use the following column definition:
+```javascript
+{
+  property: 'age',
+  header: {
+    label: 'Age'
+  },
+  type: 'number'
+}
+```
+
+To use date filter, use the following column definition:
+```javascript
+{
+  property: 'date_updated',
+  header: {
+    label: 'Date Updated'
+  },
+  type: 'date'
+}
+```
+
+To use boolean filter, use the following column definition:
+```javascript
+{
+  property: 'is_device',
+  header: {
+    label: 'Is Device'
+  },
+  checkbox: true
+}
+```
+
+## Searchtabular (reactabular)
+The sections below belong to the ReadMe of [Searchtabular package](https://github.com/reactabular/searchtabular.git).
 
 ## API
 
