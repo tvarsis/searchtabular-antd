@@ -154,8 +154,22 @@ var date = function date(queryTerm) {
   };
 };
 
+var boolean = function boolean(queryTerm) {
+  return {
+    evaluate: function evaluate() {
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      return queryTerm === searchText;
+    },
+    matches: function matches() {
+      return [];
+    }
+  };
+};
+
 exports.default = {
   infix: infix,
   prefix: prefix,
-  date: date
+  date: date,
+  boolean: boolean
 };

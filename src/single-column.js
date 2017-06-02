@@ -3,7 +3,7 @@ import _columnMatches from './_column-matches';
 const singleColumn = ({
   castingStrategy, columns, searchColumn = 'all', query, strategy, transform
 }) => (rows) => {
-  if (!query) {
+  if (!query && (query !== false)) {
     return rows;
   }
 

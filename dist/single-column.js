@@ -19,7 +19,7 @@ var singleColumn = function singleColumn(_ref) {
       strategy = _ref.strategy,
       transform = _ref.transform;
   return function (rows) {
-    if (!query) {
+    if (!query && query !== false) {
       return rows;
     }
 

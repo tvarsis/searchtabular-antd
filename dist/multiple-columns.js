@@ -37,6 +37,19 @@ var multipleColumns = function multipleColumns(_ref) {
             return t;
           }
         })(filteredData);
+      } else if (column.checkbox) {
+        result = (0, _singleColumn2.default)({
+          castingStrategy: function castingStrategy(t) {
+            return t;
+          },
+          columns: columns,
+          searchColumn: searchColumn,
+          query: query[searchColumn],
+          strategy: _strategies2.default.boolean,
+          transform: function transform(t) {
+            return t;
+          }
+        })(filteredData);
       } else {
         result = (0, _singleColumn2.default)({
           castingStrategy: castingStrategy,

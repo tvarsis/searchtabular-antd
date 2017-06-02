@@ -122,8 +122,18 @@ const date = queryTerm => ({
   }
 });
 
+const boolean = queryTerm => ({
+  evaluate(searchText = false) {
+    return queryTerm === searchText;
+  },
+  matches() {
+    return [];
+  }
+});
+
 export default {
   infix,
   prefix,
-  date
+  date,
+  boolean
 };
