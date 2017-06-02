@@ -1,4 +1,5 @@
 import { isArray } from 'lodash';
+import moment from 'moment';
 
 const infix = queryTerm => ({
   evaluate(searchText = '') {
@@ -98,7 +99,31 @@ const prefix = queryTerm => ({
   }
 });
 
+const date = queryTerm => ({
+  evaluate(searchText = '') {
+    if (!searchText) {
+      return false;
+    }
+    let result = true;
+    if (queryTerm.min) {
+      if (queryTerm.max) {
+        result = moment(searchText).isSameOrAfter(queryTerm.min) &&
+        moment(searchText).isSameOrBefore(queryTerm.max);
+      } else {
+        result = moment(searchText).isSameOrAfter(queryTerm.min);
+      }
+    } else if (queryTerm.max) {
+      result = moment(searchText).isSameOrBefore(queryTerm.max);
+    }
+    return result;
+  },
+  matches() {
+    return [];
+  }
+});
+
 export default {
   infix,
-  prefix
+  prefix,
+  date
 };

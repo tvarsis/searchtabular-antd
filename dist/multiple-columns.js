@@ -8,6 +8,10 @@ var _singleColumn = require('./single-column');
 
 var _singleColumn2 = _interopRequireDefault(_singleColumn);
 
+var _strategies = require('./strategies');
+
+var _strategies2 = _interopRequireDefault(_strategies);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var multipleColumns = function multipleColumns(_ref) {
@@ -18,14 +22,32 @@ var multipleColumns = function multipleColumns(_ref) {
       transform = _ref.transform;
   return function (data) {
     return query ? Object.keys(query).reduce(function (filteredData, searchColumn) {
-      return (0, _singleColumn2.default)({
-        castingStrategy: castingStrategy,
-        columns: columns,
-        searchColumn: searchColumn,
-        query: query[searchColumn],
-        strategy: strategy,
-        transform: transform
-      })(filteredData);
+      var column = columns.find(function (c) {
+        return c.property === searchColumn;
+      });
+      var result = void 0;
+      if (column.type === 'date') {
+        result = (0, _singleColumn2.default)({
+          castingStrategy: castingStrategy,
+          columns: columns,
+          searchColumn: searchColumn,
+          query: query[searchColumn],
+          strategy: _strategies2.default.date,
+          transform: function transform(t) {
+            return t;
+          }
+        })(filteredData);
+      } else {
+        result = (0, _singleColumn2.default)({
+          castingStrategy: castingStrategy,
+          columns: columns,
+          searchColumn: searchColumn,
+          query: query[searchColumn],
+          strategy: strategy,
+          transform: transform
+        })(filteredData);
+      }
+      return result;
     }, data) : data;
   };
 };

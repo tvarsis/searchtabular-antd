@@ -8,6 +8,10 @@ var _isArray2 = require('lodash/isArray');
 
 var _isArray3 = _interopRequireDefault(_isArray2);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var infix = function infix(queryTerm) {
@@ -124,7 +128,34 @@ var prefix = function prefix(queryTerm) {
   };
 };
 
+var date = function date(queryTerm) {
+  return {
+    evaluate: function evaluate() {
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (!searchText) {
+        return false;
+      }
+      var result = true;
+      if (queryTerm.min) {
+        if (queryTerm.max) {
+          result = (0, _moment2.default)(searchText).isSameOrAfter(queryTerm.min) && (0, _moment2.default)(searchText).isSameOrBefore(queryTerm.max);
+        } else {
+          result = (0, _moment2.default)(searchText).isSameOrAfter(queryTerm.min);
+        }
+      } else if (queryTerm.max) {
+        result = (0, _moment2.default)(searchText).isSameOrBefore(queryTerm.max);
+      }
+      return result;
+    },
+    matches: function matches() {
+      return [];
+    }
+  };
+};
+
 exports.default = {
   infix: infix,
-  prefix: prefix
+  prefix: prefix,
+  date: date
 };
