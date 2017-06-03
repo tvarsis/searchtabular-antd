@@ -18,6 +18,15 @@ const multipleColumns = ({
               strategy: strategies.date,
               transform: t => t
             })(filteredData);
+          } else if (column.type === 'number') {
+            result = singleColumn({
+              castingStrategy: t => t,
+              columns,
+              searchColumn,
+              query: query[searchColumn],
+              strategy: strategies.number,
+              transform: t => t
+            })(filteredData);
           } else if (column.checkbox) {
             result = singleColumn({
               castingStrategy: t => t,

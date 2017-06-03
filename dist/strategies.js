@@ -154,6 +154,32 @@ var date = function date(queryTerm) {
   };
 };
 
+var number = function number(queryTerm) {
+  return {
+    evaluate: function evaluate() {
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (!searchText) {
+        return false;
+      }
+      var result = true;
+      if (queryTerm.min) {
+        if (queryTerm.max) {
+          result = searchText >= queryTerm.min && searchText <= queryTerm.max;
+        } else {
+          result = searchText >= queryTerm.min;
+        }
+      } else if (queryTerm.max) {
+        result = searchText <= queryTerm.max;
+      }
+      return result;
+    },
+    matches: function matches() {
+      return [];
+    }
+  };
+};
+
 var boolean = function boolean(queryTerm) {
   return {
     evaluate: function evaluate() {
@@ -171,5 +197,6 @@ exports.default = {
   infix: infix,
   prefix: prefix,
   date: date,
+  number: number,
   boolean: boolean
 };

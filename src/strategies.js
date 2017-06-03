@@ -122,6 +122,29 @@ const date = queryTerm => ({
   }
 });
 
+const number = queryTerm => ({
+  evaluate(searchText = '') {
+    if (!searchText) {
+      return false;
+    }
+    let result = true;
+    if (queryTerm.min) {
+      if (queryTerm.max) {
+        result = searchText >= queryTerm.min &&
+        searchText <= queryTerm.max;
+      } else {
+        result = searchText >= queryTerm.min;
+      }
+    } else if (queryTerm.max) {
+      result = searchText <= queryTerm.max;
+    }
+    return result;
+  },
+  matches() {
+    return [];
+  }
+});
+
 const boolean = queryTerm => ({
   evaluate(searchText = false) {
     return queryTerm === searchText;
@@ -135,5 +158,6 @@ export default {
   infix,
   prefix,
   date,
+  number,
   boolean
 };
