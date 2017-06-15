@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+// import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
+
 
 var _react = require('react');
 
@@ -14,14 +16,28 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _antd = require('antd');
+var _checkbox = require('antd/lib/checkbox');
+
+var _checkbox2 = _interopRequireDefault(_checkbox);
+
+var _datePicker = require('antd/lib/date-picker');
+
+var _datePicker2 = _interopRequireDefault(_datePicker);
+
+var _input = require('antd/lib/input');
+
+var _input2 = _interopRequireDefault(_input);
+
+var _inputNumber = require('antd/lib/input-number');
+
+var _inputNumber2 = _interopRequireDefault(_inputNumber);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function renderCheckbox(column, query, onCheckChange) {
-  return column && column.property && column.checkbox ? _react2.default.createElement(_antd.Checkbox, {
+  return column && column.property && column.checkbox ? _react2.default.createElement(_checkbox2.default, {
     indeterminate: typeof query[column.property] === 'undefined',
     name: column.property,
     checked: query[column.property] || false,
@@ -37,7 +53,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     _react2.default.createElement(
       'div',
       null,
-      _react2.default.createElement(_antd.DatePicker, {
+      _react2.default.createElement(_datePicker2.default, {
         placeholder: 'From date',
         style: { width: '100%' },
         value: queryVal.min,
@@ -49,7 +65,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     _react2.default.createElement(
       'div',
       { style: { marginTop: 10 } },
-      _react2.default.createElement(_antd.DatePicker, {
+      _react2.default.createElement(_datePicker2.default, {
         placeholder: 'To date',
         style: { width: '100%' },
         value: queryVal.max,
@@ -69,7 +85,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
     _react2.default.createElement(
       'div',
       null,
-      _react2.default.createElement(_antd.InputNumber, {
+      _react2.default.createElement(_inputNumber2.default, {
         placeholder: 'From',
         name: column.property,
         style: { width: '100%' },
@@ -82,7 +98,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
     _react2.default.createElement(
       'div',
       { style: { marginTop: 10 } },
-      _react2.default.createElement(_antd.InputNumber, {
+      _react2.default.createElement(_inputNumber2.default, {
         placeholder: 'To',
         name: column.property,
         style: { width: '100%' },
@@ -96,7 +112,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== 'date' && column.type !== 'number' ? _react2.default.createElement(_antd.Input, {
+  return column && column.property && !column.checkbox && column.type !== 'date' && column.type !== 'number' ? _react2.default.createElement(_input2.default, {
     onChange: onQueryChange,
     name: column.property,
     placeholder: column.filterPlaceholder || '',

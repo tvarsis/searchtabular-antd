@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
+// import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
+import Checkbox from 'antd/lib/checkbox';
+import DatePicker from 'antd/lib/date-picker';
+import Input from 'antd/lib/input';
+import InputNumber from 'antd/lib/input-number';
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ?
