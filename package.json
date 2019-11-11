@@ -1,6 +1,6 @@
 {
   "name": "searchtabular-antd",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Search utilities",
   "main": "dist",
   "scripts": {
@@ -45,8 +45,8 @@
     "url": "https://github.com/vijayst/searchtabular-antd/issues"
   },
   "dependencies": {
-    "antd": "^2.10.1",
-    "moment": "^2.18.1"
+    "antd": "^3.25.1",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -74,7 +74,7 @@
   },
   "peerDependencies": {
     "lodash": ">= 3.0.0 < 5.0.0",
-    "react": ">= 15.0.0 < 16.0.0"
+    "react": ">= 16.0.0 < 17.0.0"
   },
   "pre-push": [
     "test:all"
