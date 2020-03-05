@@ -1,21 +1,20 @@
 module.exports = {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "jasmine": true,
-    "node": true
+  extends: "eslint:recommended",
+  parser: "babel-eslint",
+  env: {
+    browser: true,
+    jasmine: true,
+    node: true
   },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
+  plugins: ["react"],
+  rules: {
     "comma-dangle": ["error", "never"], // personal preference
+    "no-unused-vars": 0,
     "prefer-arrow-callback": 0, // mocha tests (recommendation)
     "func-names": 0, // mocha tests (recommendation)
     "import/extensions": 0, // skip import extensions
     "import/no-extraneous-dependencies": 0, // monorepo setup
-    "import/no-unresolved": [1, { ignore: ['^reactabular'] }], // monorepo setup
+    // "import/no-unresolved": [1, { ignore: ["^reactabular"] }], // monorepo setup
     "no-underscore-dangle": 0, // implementation detail (_highlights etc.)
     "no-unused-expressions": 0, // chai
     "no-use-before-define": 0, // personal preference

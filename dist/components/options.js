@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -23,15 +23,15 @@ var Options = function Options(_ref) {
       i18n = _ref.i18n,
       _ref$onChange = _ref.onChange,
       onChange = _ref$onChange === undefined ? function () {} : _ref$onChange,
-      _ref$components = _ref.components,
-      components = _ref$components === undefined ? {
+      _ref$renderers = _ref.renderers,
+      renderers = _ref$renderers === undefined ? {
     select: null,
     props: {
       select: {}
     }
-  } : _ref$components,
+  } : _ref$renderers,
       value = _ref.value,
-      props = _objectWithoutProperties(_ref, ['columns', 'i18n', 'onChange', 'components', 'value']);
+      props = _objectWithoutProperties(_ref, ["columns", "i18n", "onChange", "renderers", "value"]);
 
   var componentBuilder = function componentBuilder() {
     if (!columns.length) {
@@ -40,15 +40,15 @@ var Options = function Options(_ref) {
 
     var opts = optionBuilder();
 
-    return components.select ? getCustomComponent(components.select, opts) : _react2.default.createElement(
-      'select',
+    return renderers.select ? getCustomComponent(renderers.select, opts) : _react2.default.createElement(
+      "select",
       _extends({ onChange: onChange, value: value }, props),
       opts
     );
   };
 
   var getCustomComponent = function getCustomComponent(Custom, opts) {
-    var _ref2 = components.props || {},
+    var _ref2 = renderers.props || {},
         _ref2$select = _ref2.select,
         select = _ref2$select === undefined ? {} : _ref2$select;
 
@@ -56,16 +56,15 @@ var Options = function Options(_ref) {
   };
 
   var optionBuilder = function optionBuilder() {
-    return getOptions(columns, i18n).map(function (_ref3) {
+    return getOptions(columns, i18n).map(function (_ref3 // eslint-disable-line no-shadow, max-len
+    ) {
       var name = _ref3.name,
           value = _ref3.value;
-      return (// eslint-disable-line no-shadow, max-len
-        !components.select ? _react2.default.createElement(
-          'option',
-          { key: value + '-option', value: value },
-          name
-        ) : { key: value + '-option', value: value, name: name }
-      );
+      return !renderers.select ? _react2.default.createElement(
+        "option",
+        { key: value + "-option", value: value },
+        name
+      ) : { key: value + "-option", value: value, name: name };
     });
   };
 
@@ -73,7 +72,7 @@ var Options = function Options(_ref) {
 };
 Options.propTypes = {
   columns: _propTypes2.default.array,
-  components: _propTypes2.default.object,
+  renderers: _propTypes2.default.object,
   i18n: _propTypes2.default.object,
   onChange: _propTypes2.default.func,
   value: _propTypes2.default.any
@@ -81,7 +80,7 @@ Options.propTypes = {
 
 var getOptions = function getOptions(columns, i18n) {
   return (columns.length > 1 ? [{
-    value: 'all',
+    value: "all",
     name: i18n.all
   }] : []).concat(columns.map(function (column) {
     if (column.property && column.header && column.header.label) {

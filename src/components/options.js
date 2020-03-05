@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const Options = ({
   columns,
   i18n,
   onChange = () => {},
-  components = {
+  renderers = {
     select: null,
     props: {
       select: {}
@@ -21,53 +21,66 @@ const Options = ({
 
     const opts = optionBuilder();
 
-    return (
-      components.select ?
-        getCustomComponent(components.select, opts) :
-        <select onChange={onChange} value={value} {...props}>{opts}</select>
+    return renderers.select ? (
+      getCustomComponent(renderers.select, opts)
+    ) : (
+      <select onChange={onChange} value={value} {...props}>
+        {opts}
+      </select>
     );
   };
 
   const getCustomComponent = (Custom, opts) => {
-    const { select = {} } = components.props || {};
+    const { select = {} } = renderers.props || {};
 
     return <Custom onChange={onChange} value={value} options={opts} {...props} {...select} />;
   };
 
-  const optionBuilder = () => (
-    getOptions(columns, i18n).map(({ name, value }) => // eslint-disable-line no-shadow, max-len
-      (!components.select ? <option key={`${value}-option`} value={value}>{name}</option>
-        : { key: `${value}-option`, value, name })
-    )
-  );
+  const optionBuilder = () =>
+    getOptions(columns, i18n).map((
+      { name, value } // eslint-disable-line no-shadow, max-len
+    ) =>
+      !renderers.select ? (
+        <option key={`${value}-option`} value={value}>
+          {name}
+        </option>
+      ) : (
+        { key: `${value}-option`, value, name }
+      )
+    );
 
   return componentBuilder();
 };
 Options.propTypes = {
   columns: PropTypes.array,
-  components: PropTypes.object,
+  renderers: PropTypes.object,
   i18n: PropTypes.object,
   onChange: PropTypes.func,
   value: PropTypes.any
 };
 
-const getOptions = (columns, i18n) => (
-  (columns.length > 1 ? [{
-    value: 'all',
-    name: i18n.all
-  }] : []).concat(columns.map((column) => {
-    if (
-      (column.property) &&
-      (column.header && column.header.label)
-    ) {
-      return {
-        value: column.property,
-        name: column.header.label
-      };
-    }
+const getOptions = (columns, i18n) =>
+  (columns.length > 1
+    ? [
+        {
+          value: "all",
+          name: i18n.all
+        }
+      ]
+    : []
+  ).concat(
+    columns
+      .map(column => {
+        if (column.property && column.header && column.header.label) {
+          return {
+            value: column.property,
+            name: column.header.label
+          };
+        }
 
-    return null;
-  }).filter(column => column))
-);
+        return null;
+      })
+      .filter(column => column)
+  );
 
 export default Options;

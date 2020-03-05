@@ -3,13 +3,16 @@
 Searchtabular comes with search helpers. It consists of search algorithms that can be applied to the rows. Just like with sorting, you have to apply it to the rows just before rendering. A column is considered searchable in case it has a unique `property` defined.
 
 ## Searchtabular Antd
-The original Searchtabular package has only one type of filter - text filter. Date filter, number filter, boolean filter was not possible. To implement these advanced filters, the searchtabular-antd package uses antd components. 
-* Input - text filter
-* InputNumber - range filter for numbers
-* DatePicker - date filter
-* Checkbox - boolean filter
+
+The original Searchtabular package has only one type of filter - text filter. Date filter, number filter, boolean filter was not possible. To implement these advanced filters, the searchtabular-antd package uses antd renderers.
+
+- Input - text filter
+- InputNumber - range filter for numbers
+- DatePicker - date filter
+- Checkbox - boolean filter
 
 To use range filter for numbers, use the following column definition:
+
 ```javascript
 {
   property: 'age',
@@ -21,6 +24,7 @@ To use range filter for numbers, use the following column definition:
 ```
 
 To use date filter, use the following column definition:
+
 ```javascript
 {
   property: 'date_updated',
@@ -32,6 +36,7 @@ To use date filter, use the following column definition:
 ```
 
 To use boolean filter, use the following column definition:
+
 ```javascript
 {
   property: 'is_device',
@@ -43,6 +48,7 @@ To use boolean filter, use the following column definition:
 ```
 
 ## Searchtabular (reactabular)
+
 The sections below belong to the ReadMe of [Searchtabular package](https://github.com/reactabular/searchtabular.git).
 
 ## API
@@ -50,11 +56,11 @@ The sections below belong to the ReadMe of [Searchtabular package](https://githu
 The search API consists of three parts. Out of these `search.multipleColumns` and `search.matches` are the most useful ones for normal usage. If the default search strategies aren't enough, it's possible to implement more as long as you follow the same interface.
 
 ```javascript
-import * as search from 'searchtabular';
+import * as search from "searchtabular";
 
 // Or you can cherry-pick
-import { multipleColumns } from 'searchtabular';
-import { multipleColumns as searchMultipleColumns } from 'searchtabular';
+import { multipleColumns } from "searchtabular";
+import { multipleColumns as searchMultipleColumns } from "searchtabular";
 ```
 
 ### Search
@@ -119,7 +125,7 @@ To use it, you'll first you have to annotate your rows using `highlighter`. It a
 
 ```javascript
 _highlights: {
-  demo: [{ startIndex: 0, length: 4 }]
+  demo: [{ startIndex: 0, length: 4 }];
 }
 ```
 
@@ -139,27 +145,27 @@ class HighlightTable extends React.Component {
     super(props);
 
     this.state = {
-      searchColumn: 'all',
+      searchColumn: "all",
       query: {},
       columns: [
         {
           header: {
-            label: 'Name'
+            label: "Name"
           },
           children: [
             {
-              property: 'name.first',
+              property: "name.first",
               header: {
-                label: 'First Name'
+                label: "First Name"
               },
               cell: {
                 formatters: [search.highlightCell]
               }
             },
             {
-              property: 'name.last',
+              property: "name.last",
               header: {
-                label: 'Last Name'
+                label: "Last Name"
               },
               cell: {
                 formatters: [search.highlightCell]
@@ -168,9 +174,9 @@ class HighlightTable extends React.Component {
           ]
         },
         {
-          property: 'age',
+          property: "age",
           header: {
-            label: 'Age'
+            label: "Age"
           },
           cell: {
             formatters: [search.highlightCell]
@@ -181,32 +187,32 @@ class HighlightTable extends React.Component {
         {
           id: 100,
           name: {
-            first: 'Adam',
-            last: 'West'
+            first: "Adam",
+            last: "West"
           },
           age: 10
         },
         {
           id: 101,
           name: {
-            first: 'Brian',
-            last: 'Eno'
+            first: "Brian",
+            last: "Eno"
           },
           age: 43
         },
         {
           id: 103,
           name: {
-            first: 'Jake',
-            last: 'Dalton'
+            first: "Jake",
+            last: "Dalton"
           },
           age: 33
         },
         {
           id: 104,
           name: {
-            first: 'Jill',
-            last: 'Jackson'
+            first: "Jill",
+            last: "Jackson"
           },
           age: 63
         }
@@ -229,7 +235,7 @@ class HighlightTable extends React.Component {
       search.multipleColumns({
         columns: resolvedColumns,
         query
-      }),
+      })
     )(resolvedRows);
 
     return (
@@ -246,9 +252,7 @@ class HighlightTable extends React.Component {
           />
         </div>
         <Table.Provider columns={resolvedColumns}>
-          <Table.Header
-            headerRows={resolve.headerRows({ columns })}
-          />
+          <Table.Header headerRows={resolve.headerRows({ columns })} />
 
           <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
@@ -257,12 +261,12 @@ class HighlightTable extends React.Component {
   }
 }
 
-<HighlightTable />
+<HighlightTable />;
 ```
 
 ## Components
 
-`searchtabular` provides a couple of convenience components listed below.
+`searchtabular` provides a couple of convenience renderers listed below.
 
 ### Searching Columns
 
@@ -291,27 +295,27 @@ class SearchColumnsTable extends React.Component {
       columns: [
         {
           header: {
-            label: 'Name'
+            label: "Name"
           },
           children: [
             {
-              property: 'name.first',
+              property: "name.first",
               header: {
-                label: 'First Name'
+                label: "First Name"
               }
             },
             {
-              property: 'name.last',
+              property: "name.last",
               header: {
-                label: 'Last Name'
+                label: "Last Name"
               }
             }
           ]
         },
         {
-          property: 'age',
+          property: "age",
           header: {
-            label: 'Age'
+            label: "Age"
           }
         }
       ],
@@ -319,32 +323,32 @@ class SearchColumnsTable extends React.Component {
         {
           id: 100,
           name: {
-            first: 'Adam',
-            last: 'West'
+            first: "Adam",
+            last: "West"
           },
           age: 10
         },
         {
           id: 101,
           name: {
-            first: 'Brian',
-            last: 'Eno'
+            first: "Brian",
+            last: "Eno"
           },
           age: 43
         },
         {
           id: 103,
           name: {
-            first: 'Jake',
-            last: 'Dalton'
+            first: "Jake",
+            last: "Dalton"
           },
           age: 33
         },
         {
           id: 104,
           name: {
-            first: 'Jill',
-            last: 'Jackson'
+            first: "Jill",
+            last: "Jackson"
           },
           age: 63
         }
@@ -365,14 +369,8 @@ class SearchColumnsTable extends React.Component {
 
     return (
       <Table.Provider columns={resolvedColumns}>
-        <Table.Header
-          headerRows={resolve.headerRows({ columns })}
-        >
-          <search.Columns
-            query={query}
-            columns={resolvedColumns}
-            onChange={query => this.setState({ query })}
-          />
+        <Table.Header headerRows={resolve.headerRows({ columns })}>
+          <search.Columns query={query} columns={resolvedColumns} onChange={query => this.setState({ query })} />
         </Table.Header>
 
         <Table.Body rows={searchedRows} rowKey="id" />
@@ -381,7 +379,7 @@ class SearchColumnsTable extends React.Component {
   }
 }
 
-<SearchColumnsTable />
+<SearchColumnsTable />;
 ```
 
 ### Searching Through a Single Field
@@ -389,7 +387,7 @@ class SearchColumnsTable extends React.Component {
 `searchtabular.Field` provides a search control with a column listing and an input.
 
 `searchtabular.Field` also supports custom component overrides for the column `<select>` and `<input>` field.
-It is on you to couple the `onChange` events to the target fields rendered within your custom components.
+It is on you to couple the `onChange` events to the target fields rendered within your custom renderers.
 
 ## How to Use?
 
@@ -411,32 +409,32 @@ class SearchTable extends React.Component {
     super(props);
 
     this.state = {
-      searchColumn: 'all',
+      searchColumn: "all",
       query: {}, // Search query
       columns: [
         {
           header: {
-            label: 'Name'
+            label: "Name"
           },
           children: [
             {
-              property: 'name.first',
+              property: "name.first",
               header: {
-                label: 'First Name'
+                label: "First Name"
               }
             },
             {
-              property: 'name.last',
+              property: "name.last",
               header: {
-                label: 'Last Name'
+                label: "Last Name"
               }
             }
           ]
         },
         {
-          property: 'age',
+          property: "age",
           header: {
-            label: 'Age'
+            label: "Age"
           }
         }
       ],
@@ -444,32 +442,32 @@ class SearchTable extends React.Component {
         {
           id: 100,
           name: {
-            first: 'Adam',
-            last: 'West'
+            first: "Adam",
+            last: "West"
           },
           age: 10
         },
         {
           id: 101,
           name: {
-            first: 'Brian',
-            last: 'Eno'
+            first: "Brian",
+            last: "Eno"
           },
           age: 43
         },
         {
           id: 103,
           name: {
-            first: 'Jake',
-            last: 'Dalton'
+            first: "Jake",
+            last: "Dalton"
           },
           age: 33
         },
         {
           id: 104,
           name: {
-            first: 'Jill',
-            last: 'Jackson'
+            first: "Jill",
+            last: "Jackson"
           },
           age: 63
         }
@@ -499,25 +497,23 @@ class SearchTable extends React.Component {
             rows={resolvedRows}
             onColumnChange={searchColumn => this.setState({ searchColumn })}
             onChange={query => this.setState({ query })}
-            components={{
+            renderers={{
               filter: CustomField,
               select: CustomSelect,
               props: {
                 filter: {
-                  className: 'custom-textfield',
-                  placeholder: 'Refine Results'
+                  className: "custom-textfield",
+                  placeholder: "Refine Results"
                 },
                 select: {
-                  className: 'custom-select'
+                  className: "custom-select"
                 }
               }
             }}
           />
         </div>
         <Table.Provider columns={resolvedColumns}>
-          <Table.Header
-            headerRows={resolve.headerRows({ columns })}
-          />
+          <Table.Header headerRows={resolve.headerRows({ columns })} />
 
           <Table.Body rows={searchedRows} rowKey="id" />
         </Table.Provider>
@@ -531,14 +527,16 @@ const CustomSelect = ({ options, onChange }) => (
   <div>
     <input className="controlled-field" type="text" onChange={onChange} defaultValue="all" />
     <ul>
-      { options.map(({ key, name, value }) => (
-        <li key={key} data-value={value}>{name}</li>)
-      ) }
+      {options.map(({ key, name, value }) => (
+        <li key={key} data-value={value}>
+          {name}
+        </li>
+      ))}
     </ul>
   </div>
 );
 
-<SearchTable />
+<SearchTable />;
 ```
 
 ## License

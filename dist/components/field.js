@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,15 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _options = require('./options');
+var _options = require("./options");
 
 var _options2 = _interopRequireDefault(_options);
 
@@ -28,11 +28,11 @@ var Field = function Field(_ref) {
   var query = _ref.query,
       column = _ref.column,
       columns = _ref.columns,
-      components = _ref.components,
+      renderers = _ref.renderers,
       i18n = _ref.i18n,
       onChange = _ref.onChange,
       onColumnChange = _ref.onColumnChange,
-      props = _objectWithoutProperties(_ref, ['query', 'column', 'columns', 'components', 'i18n', 'onChange', 'onColumnChange']);
+      props = _objectWithoutProperties(_ref, ["query", "column", "columns", "renderers", "i18n", "onChange", "onColumnChange"]);
 
   var onOptionsChange = function onOptionsChange(_ref2) {
     var value = _ref2.target.value;
@@ -45,34 +45,28 @@ var Field = function Field(_ref) {
     return onChange(_defineProperty({}, column, value));
   };
   var filterInput = function filterInput() {
-    var Custom = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'input';
+    var Custom = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "input";
 
     if (!columns.length) return null;
 
-    var _ref4 = components.props || {},
+    var _ref4 = renderers.props || {},
         _ref4$filter = _ref4.filter,
         filter = _ref4$filter === undefined ? {} : _ref4$filter;
 
-    return _react2.default.createElement(Custom, _extends({ onChange: onQueryChange, value: query[column] || '' }, filter));
+    return _react2.default.createElement(Custom, _extends({ onChange: onQueryChange, value: query[column] || "" }, filter));
   };
 
   return _react2.default.createElement(
-    'div',
+    "div",
     props,
-    _react2.default.createElement(_options2.default, {
-      value: column,
-      onChange: onOptionsChange,
-      columns: columns,
-      i18n: i18n,
-      components: components
-    }),
-    filterInput(components.filter || 'input')
+    _react2.default.createElement(_options2.default, { value: column, onChange: onOptionsChange, columns: columns, i18n: i18n, renderers: renderers }),
+    filterInput(renderers.filter || "input")
   );
 };
 Field.propTypes = {
   column: _propTypes2.default.string,
   columns: _propTypes2.default.array,
-  components: _propTypes2.default.object,
+  renderers: _propTypes2.default.object,
   query: _propTypes2.default.object,
   i18n: _propTypes2.default.shape({
     all: _propTypes2.default.string
@@ -81,9 +75,9 @@ Field.propTypes = {
   onColumnChange: _propTypes2.default.func
 };
 Field.defaultProps = {
-  column: 'all',
+  column: "all",
   columns: [],
-  components: {
+  renderers: {
     filter: null,
     select: null,
     props: {
@@ -93,7 +87,7 @@ Field.defaultProps = {
   },
   query: {},
   i18n: {
-    all: 'All'
+    all: "All"
   },
   onChange: function onChange() {},
   onColumnChange: function onColumnChange() {}
