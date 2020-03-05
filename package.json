@@ -1,6 +1,6 @@
 {
   "name": "searchtabular-antd",
-  "version": "1.2.1",
+  "version": "1.6.0",
   "description": "Search utilities",
   "main": "dist",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vijayst/searchtabular-antd.git"
+    "url": "https://github.com/tvarsis/searchtabular-antd.git"
   },
   "keywords": [
     "search",
@@ -42,7 +42,7 @@
   "author": "Vijay Thirugnanam <vijayst@gmail.com> (http://github.com/vijayst)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vijayst/searchtabular-antd/issues"
+    "url": "https://github.com/tvarsis/searchtabular-antd/issues"
   },
   "dependencies": {
     "antd": "^3.25.1",
