@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _isArray2 = require('lodash/isArray');
+var _isArray2 = require("lodash/isArray");
 
 var _isArray3 = _interopRequireDefault(_isArray2);
 
-var _moment = require('moment');
+var _moment = require("moment");
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -19,7 +19,7 @@ var infix = function infix(queryTerm) {
     evaluate: function evaluate() {
       var _this = this;
 
-      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 
       if (!searchText) {
         return false;
@@ -36,7 +36,7 @@ var infix = function infix(queryTerm) {
     matches: function matches() {
       var _this2 = this;
 
-      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 
       if (!searchText) {
         return [];
@@ -79,7 +79,7 @@ var prefix = function prefix(queryTerm) {
     evaluate: function evaluate() {
       var _this3 = this;
 
-      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 
       if (!searchText) {
         return false;
@@ -96,7 +96,7 @@ var prefix = function prefix(queryTerm) {
     matches: function matches() {
       var _this4 = this;
 
-      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 
       if (!searchText) {
         return [];
@@ -131,7 +131,7 @@ var prefix = function prefix(queryTerm) {
 var date = function date(queryTerm) {
   return {
     evaluate: function evaluate() {
-      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 
       if (!searchText) {
         return false;
@@ -157,19 +157,19 @@ var date = function date(queryTerm) {
 var number = function number(queryTerm) {
   return {
     evaluate: function evaluate() {
-      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var searchText = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 
       if (!searchText) {
         return false;
       }
       var result = true;
-      if (queryTerm.min) {
-        if (queryTerm.max) {
+      if (queryTerm.min || queryTerm.min === 0) {
+        if (queryTerm.max || queryTerm.max === 0) {
           result = searchText >= queryTerm.min && searchText <= queryTerm.max;
         } else {
           result = searchText >= queryTerm.min;
         }
-      } else if (queryTerm.max) {
+      } else if (queryTerm.max || queryTerm.max === 0) {
         result = searchText <= queryTerm.max;
       }
       return result;
