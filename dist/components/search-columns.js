@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -8,27 +8,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 // import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
 
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _checkbox = require('antd/lib/checkbox');
+var _checkbox = require("antd/lib/checkbox");
 
 var _checkbox2 = _interopRequireDefault(_checkbox);
 
-var _datePicker = require('antd/lib/date-picker');
+var _datePicker = require("antd/lib/date-picker");
 
 var _datePicker2 = _interopRequireDefault(_datePicker);
 
-var _input = require('antd/lib/input');
+var _input = require("antd/lib/input");
 
 var _input2 = _interopRequireDefault(_input);
 
-var _inputNumber = require('antd/lib/input-number');
+var _inputNumber = require("antd/lib/input-number");
 
 var _inputNumber2 = _interopRequireDefault(_inputNumber);
 
@@ -38,24 +38,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? _react2.default.createElement(_checkbox2.default, {
-    indeterminate: typeof query[column.property] === 'undefined',
+    indeterminate: typeof query[column.property] === "undefined",
     name: column.property,
     checked: query[column.property] || false,
     onChange: onCheckChange
-  }) : '';
+  }) : "";
 }
 
 function renderDate(column, query, onMinDateChange, onMaxDateChange) {
   var queryVal = query[column.property] || {};
-  return column && column.property && column.type === 'date' ? _react2.default.createElement(
-    'div',
+  return column && column.property && column.type === "date" ? _react2.default.createElement(
+    "div",
     null,
     _react2.default.createElement(
-      'div',
+      "div",
       null,
       _react2.default.createElement(_datePicker2.default, {
-        placeholder: 'From date',
-        style: { width: '100%' },
+        placeholder: "From date",
+        style: { width: "100%" },
         value: queryVal.min,
         onChange: function onChange(date) {
           return onMinDateChange(column.property, date);
@@ -63,61 +63,64 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       })
     ),
     _react2.default.createElement(
-      'div',
+      "div",
       { style: { marginTop: 10 } },
       _react2.default.createElement(_datePicker2.default, {
-        placeholder: 'To date',
-        style: { width: '100%' },
+        placeholder: "To date",
+        style: { width: "100%" },
         value: queryVal.max,
         onChange: function onChange(date) {
           return onMaxDateChange(column.property, date);
         }
       })
     )
-  ) : '';
+  ) : "";
 }
 
 function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   var queryVal = query[column.property] || {};
-  return column && column.property && column.type === 'number' ? _react2.default.createElement(
-    'div',
+  var min = queryVal.min || queryVal.min === 0 ? queryVal.min : "";
+  var max = queryVal.max || queryVal.max === 0 ? queryVal.max : "";
+
+  return column && column.property && column.type === "number" ? _react2.default.createElement(
+    "div",
     null,
     _react2.default.createElement(
-      'div',
+      "div",
       null,
       _react2.default.createElement(_inputNumber2.default, {
-        placeholder: 'From',
+        placeholder: "From",
         name: column.property,
-        style: { width: '100%' },
-        value: queryVal.min || '',
+        style: { width: "100%" },
+        value: min,
         onChange: function onChange(value) {
           return onMinNumberChange(column.property, value);
         }
       })
     ),
     _react2.default.createElement(
-      'div',
+      "div",
       { style: { marginTop: 10 } },
       _react2.default.createElement(_inputNumber2.default, {
-        placeholder: 'To',
+        placeholder: "To",
         name: column.property,
-        style: { width: '100%' },
-        value: queryVal.max || '',
+        style: { width: "100%" },
+        value: max,
         onChange: function onChange(value) {
           return onMaxNumberChange(column.property, value);
         }
       })
     )
-  ) : '';
+  ) : "";
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== 'date' && column.type !== 'number' ? _react2.default.createElement(_input2.default, {
+  return column && column.property && !column.checkbox && column.type !== "date" && column.type !== "number" ? _react2.default.createElement(_input2.default, {
     onChange: onQueryChange,
     name: column.property,
-    placeholder: column.filterPlaceholder || '',
-    value: query[column.property] || ''
-  }) : '';
+    placeholder: column.filterPlaceholder || "",
+    value: query[column.property] || ""
+  }) : "";
 }
 
 var SearchColumns = function SearchColumns(_ref) {
@@ -147,7 +150,7 @@ var SearchColumns = function SearchColumns(_ref) {
 
   var isNumber = function isNumber(value) {
     var reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-    return !isNaN(value) && reg.test(value) || value === '' || value === '-';
+    return !isNaN(value) && reg.test(value) || value === "" || value === "-";
   };
 
   var onMinNumberChange = function onMinNumberChange(name, value) {
@@ -167,12 +170,12 @@ var SearchColumns = function SearchColumns(_ref) {
   };
 
   return _react2.default.createElement(
-    'tr',
+    "tr",
     null,
     columns.map(function (column, i) {
       return _react2.default.createElement(
-        'th',
-        { key: (column.property || i) + '-column-filter', className: 'column-filter' },
+        "th",
+        { key: (column.property || i) + "-column-filter", className: "column-filter" },
         renderCheckbox(column, query, onCheckChange),
         renderDate(column, query, onMinDateChange, onMaxDateChange),
         renderNumber(column, query, onMinNumberChange, onMaxNumberChange),
