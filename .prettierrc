@@ -1,0 +1,8 @@
+{
+  "eslintIntegration": false,
+  "jsxBracketSameLine": true,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "printWidth": 120
+}
