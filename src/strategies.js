@@ -1,8 +1,8 @@
-import { isArray } from 'lodash';
-import moment from 'moment';
+import { isArray } from "lodash";
+import moment from "moment";
 
 const infix = queryTerm => ({
-  evaluate(searchText = '') {
+  evaluate(searchText = "") {
     if (!searchText) {
       return false;
     }
@@ -13,24 +13,21 @@ const infix = queryTerm => ({
 
     return searchText.indexOf(queryTerm) !== -1;
   },
-  matches(searchText = '') {
+  matches(searchText = "") {
     if (!searchText) {
       return [];
     }
 
     if (isArray(searchText)) {
-      return searchText.reduce(
-        (result, text, index) => {
-          const search = this.matches(text);
+      return searchText.reduce((result, text, index) => {
+        const search = this.matches(text);
 
-          if (search.length) {
-            result[index] = search; // eslint-disable-line no-param-reassign
-          }
+        if (search.length) {
+          result[index] = search; // eslint-disable-line no-param-reassign
+        }
 
-          return result;
-        },
-        new Array(searchText.length)
-      );
+        return result;
+      }, new Array(searchText.length));
     }
 
     const splitString = searchText.split(queryTerm);
@@ -53,7 +50,7 @@ const infix = queryTerm => ({
 });
 
 const prefix = queryTerm => ({
-  evaluate(searchText = '') {
+  evaluate(searchText = "") {
     if (!searchText) {
       return false;
     }
@@ -64,24 +61,21 @@ const prefix = queryTerm => ({
 
     return searchText.indexOf(queryTerm) === 0;
   },
-  matches(searchText = '') {
+  matches(searchText = "") {
     if (!searchText) {
       return [];
     }
 
     if (isArray(searchText)) {
-      return searchText.reduce(
-        (result, text, index) => {
-          const search = this.matches(text);
+      return searchText.reduce((result, text, index) => {
+        const search = this.matches(text);
 
-          if (search.length) {
-            result[index] = search; // eslint-disable-line no-param-reassign
-          }
+        if (search.length) {
+          result[index] = search; // eslint-disable-line no-param-reassign
+        }
 
-          return result;
-        },
-        new Array(searchText.length)
-      );
+        return result;
+      }, new Array(searchText.length));
     }
 
     const prefixIndex = searchText.indexOf(queryTerm);
@@ -100,15 +94,14 @@ const prefix = queryTerm => ({
 });
 
 const date = queryTerm => ({
-  evaluate(searchText = '') {
+  evaluate(searchText = "") {
     if (!searchText) {
       return false;
     }
     let result = true;
     if (queryTerm.min) {
       if (queryTerm.max) {
-        result = moment(searchText).isSameOrAfter(queryTerm.min) &&
-        moment(searchText).isSameOrBefore(queryTerm.max);
+        result = moment(searchText).isSameOrAfter(queryTerm.min) && moment(searchText).isSameOrBefore(queryTerm.max);
       } else {
         result = moment(searchText).isSameOrAfter(queryTerm.min);
       }
@@ -123,19 +116,18 @@ const date = queryTerm => ({
 });
 
 const number = queryTerm => ({
-  evaluate(searchText = '') {
+  evaluate(searchText = "") {
     if (!searchText) {
       return false;
     }
     let result = true;
-    if (queryTerm.min) {
-      if (queryTerm.max) {
-        result = searchText >= queryTerm.min &&
-        searchText <= queryTerm.max;
+    if (queryTerm.min || queryTerm.min === 0) {
+      if (queryTerm.max || queryTerm.max === 0) {
+        result = searchText >= queryTerm.min && searchText <= queryTerm.max;
       } else {
         result = searchText >= queryTerm.min;
       }
-    } else if (queryTerm.max) {
+    } else if (queryTerm.max || queryTerm.max === 0) {
       result = searchText <= queryTerm.max;
     }
     return result;
