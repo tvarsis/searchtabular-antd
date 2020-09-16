@@ -32,17 +32,85 @@ var _inputNumber = require("antd/lib/input-number");
 
 var _inputNumber2 = _interopRequireDefault(_inputNumber);
 
+var _select = require("antd/lib/select");
+
+var _select2 = _interopRequireDefault(_select);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var Option = _select2.default.Option;
+
+/*function renderCheckbox(column, query, onCheckChange) {
+  return column && column.property && column.checkbox ? (
+    <Checkbox
+      indeterminate={typeof query[column.property] === "undefined"}
+      name={column.property}
+      checked={query[column.property] || false}
+      onChange={onCheckChange}
+    />
+  ) : (
+    ""
+  );
+}*/
+
 function renderCheckbox(column, query, onCheckChange) {
-  return column && column.property && column.checkbox ? _react2.default.createElement(_checkbox2.default, {
-    indeterminate: typeof query[column.property] === "undefined",
-    name: column.property,
-    checked: query[column.property] || false,
-    onChange: onCheckChange
-  }) : "";
+  return column && column.property && column.checkbox ? _react2.default.createElement(
+    _select2.default,
+    {
+      style: { width: '100%' },
+      name: column.property,
+      placeholder: column.filterPlaceholder || "",
+      defaultValue: query[column.property] || "all",
+      onChange: function onChange(value) {
+        return onCheckChange(column.property, value);
+      }
+    },
+    _react2.default.createElement(
+      Option,
+      { value: 'all' },
+      "ALL"
+    ),
+    _react2.default.createElement(
+      Option,
+      { value: true },
+      "True"
+    ),
+    _react2.default.createElement(
+      Option,
+      { value: false },
+      "False"
+    ),
+    _react2.default.createElement(
+      Option,
+      { value: null },
+      "NULL"
+    )
+  ) : "";
+}
+
+function renderDropDown(column, query, onDropDownChange) {
+  return column && column.property && column.type === "dropdown" ? _react2.default.createElement(
+    _select2.default,
+    {
+      allowClear: true,
+      style: { width: '100%' },
+      name: column.property,
+      placeholder: column.filterPlaceholder || "",
+      value: query[column.property] || "",
+      onChange: function onChange(value) {
+        return onDropDownChange(column.property, value);
+      }
+    },
+    column.options.map(function (fieldTypeOption, index) {
+      return _react2.default.createElement(
+        Option,
+        { key: index, value: fieldTypeOption.value },
+        fieldTypeOption.label
+      );
+    })
+  ) : "";
 }
 
 function renderDate(column, query, onMinDateChange, onMaxDateChange) {
@@ -115,7 +183,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== "date" && column.type !== "number" ? _react2.default.createElement(_input2.default, {
+  return column && column.property && !column.checkbox && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? _react2.default.createElement(_input2.default, {
     onChange: onQueryChange,
     name: column.property,
     placeholder: column.filterPlaceholder || "",
@@ -132,9 +200,16 @@ var SearchColumns = function SearchColumns(_ref) {
     onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.value)));
   };
 
-  var onCheckChange = function onCheckChange(event) {
-    onChange(_extends({}, query, _defineProperty({}, event.target.name, query[event.target.name] === false && event.target.checked ? undefined : event.target.checked)));
+  var onCheckChange = function onCheckChange(name, value) {
+    onChange(_extends({}, query, _defineProperty({}, name, value)));
   };
+
+  /* const onCheckChangeOld = (event) => {
+     onChange({
+       ...query,
+       [event.target.name]: query[event.target.name] === false && event.target.checked ? undefined : event.target.checked
+     });
+   };*/
 
   var onMinDateChange = function onMinDateChange(name, date) {
     var dateFilter = query[name] || {};
@@ -169,6 +244,15 @@ var SearchColumns = function SearchColumns(_ref) {
     }
   };
 
+  var onDropDownChange = function onDropDownChange(name, value) {
+    if (value) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+    if (query[name] && !value) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+  };
+
   return _react2.default.createElement(
     "tr",
     null,
@@ -179,7 +263,8 @@ var SearchColumns = function SearchColumns(_ref) {
         renderCheckbox(column, query, onCheckChange),
         renderDate(column, query, onMinDateChange, onMaxDateChange),
         renderNumber(column, query, onMinNumberChange, onMaxNumberChange),
-        renderText(column, query, onQueryChange)
+        renderText(column, query, onQueryChange),
+        renderDropDown(column, query, onDropDownChange)
       );
     })
   );
