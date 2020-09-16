@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
 import Checkbox from "antd/lib/checkbox";
 import DatePicker from "antd/lib/date-picker";
 import Input from "antd/lib/input";
@@ -8,19 +7,7 @@ import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
 const { Option } = Select;
 
-/*function renderCheckbox(column, query, onCheckChange) {
-  return column && column.property && column.checkbox ? (
-    <Checkbox
-      indeterminate={typeof query[column.property] === "undefined"}
-      name={column.property}
-      checked={query[column.property] || false}
-      onChange={onCheckChange}
-    />
-  ) : (
-    ""
-  );
-}*/
-  
+
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? (
     <Select
@@ -33,7 +20,7 @@ function renderCheckbox(column, query, onCheckChange) {
       <Option value={'all'}>ALL</Option>
       <Option value={true}>True</Option>
       <Option value={false}>False</Option>
-      <Option value={null}>NULL</Option>
+      <Option value={null}>Undefined</Option>
     </Select>
   ) : (
     ""
@@ -146,12 +133,6 @@ const SearchColumns = ({ columns, query, onChange }) => {
     });
   };
 
- /* const onCheckChangeOld = (event) => {
-    onChange({
-      ...query,
-      [event.target.name]: query[event.target.name] === false && event.target.checked ? undefined : event.target.checked
-    });
-  };*/
 
   const onMinDateChange = (name, date) => {
     const dateFilter = query[name] || {};

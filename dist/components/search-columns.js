@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-// import { Checkbox, DatePicker, Input, InputNumber } from 'antd';
-
 
 var _react = require("react");
 
@@ -42,18 +40,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var Option = _select2.default.Option;
 
-/*function renderCheckbox(column, query, onCheckChange) {
-  return column && column.property && column.checkbox ? (
-    <Checkbox
-      indeterminate={typeof query[column.property] === "undefined"}
-      name={column.property}
-      checked={query[column.property] || false}
-      onChange={onCheckChange}
-    />
-  ) : (
-    ""
-  );
-}*/
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? _react2.default.createElement(
@@ -85,7 +71,7 @@ function renderCheckbox(column, query, onCheckChange) {
     _react2.default.createElement(
       Option,
       { value: null },
-      "NULL"
+      "Undefined"
     )
   ) : "";
 }
@@ -203,13 +189,6 @@ var SearchColumns = function SearchColumns(_ref) {
   var onCheckChange = function onCheckChange(name, value) {
     onChange(_extends({}, query, _defineProperty({}, name, value)));
   };
-
-  /* const onCheckChangeOld = (event) => {
-     onChange({
-       ...query,
-       [event.target.name]: query[event.target.name] === false && event.target.checked ? undefined : event.target.checked
-     });
-   };*/
 
   var onMinDateChange = function onMinDateChange(name, date) {
     var dateFilter = query[name] || {};
