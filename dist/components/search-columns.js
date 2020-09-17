@@ -89,7 +89,7 @@ function renderDropDown(column, query, onDropDownChange) {
         return onDropDownChange(column.property, value);
       }
     },
-    column.options.map(function (fieldTypeOption, index) {
+    column.options && column.options.map(function (fieldTypeOption, index) {
       return _react2.default.createElement(
         Option,
         { key: index, value: fieldTypeOption.value },

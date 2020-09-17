@@ -37,7 +37,7 @@ function renderDropDown(column, query, onDropDownChange) {
       value={query[column.property] || ""}
       onChange={(value) => onDropDownChange(column.property, value)}
     >
-      {column.options.map((fieldTypeOption, index) => (
+      {column.options && column.options.map((fieldTypeOption, index) => (
         <Option key={index} value={fieldTypeOption.value}>
             {fieldTypeOption.label}
         </Option>
