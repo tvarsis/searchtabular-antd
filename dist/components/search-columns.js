@@ -56,7 +56,7 @@ function renderCheckbox(column, query, onCheckChange) {
     _react2.default.createElement(
       Option,
       { value: 'all' },
-      "ALL"
+      "All"
     ),
     _react2.default.createElement(
       Option,

@@ -17,7 +17,7 @@ function renderCheckbox(column, query, onCheckChange) {
       defaultValue={query[column.property] || "all"}
       onChange={(value) => onCheckChange(column.property, value)}
     >
-      <Option value={'all'}>ALL</Option>
+      <Option value={'all'}>All</Option>
       <Option value={true}>True</Option>
       <Option value={false}>False</Option>
       <Option value={null}>Undefined</Option>
