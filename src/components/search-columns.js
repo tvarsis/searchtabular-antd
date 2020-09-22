@@ -11,13 +11,13 @@ const { Option } = Select;
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? (
     <Select
+      allowClear
       style={{ width: '100%' }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
-      defaultValue={query[column.property] || "all"}
+      defaultValue={query[column.property] || ""}
       onChange={(value) => onCheckChange(column.property, value)}
     >
-      <Option value={'all'}>All</Option>
       <Option value={true}>True</Option>
       <Option value={false}>False</Option>
       <Option value={null}>Undefined</Option>
@@ -127,10 +127,30 @@ const SearchColumns = ({ columns, query, onChange }) => {
   };
 
   const onCheckChange = (name, value) => {
-    onChange({
-      ...query,
+    if(value){
+      onChange({
+        ...query,
       [name]: value
-    });
+      });
+    }
+    if(value === false){
+      onChange({
+        ...query,
+      [name]: value
+      });
+    }
+    if(value === null){
+      onChange({
+        ...query,
+      [name]: value
+      });
+    }
+    if((query[name] || query[name] === null || query[name] === false) && !value){
+      onChange({
+        ...query,
+      [name]: value
+      });
+    }
   };
 
 
