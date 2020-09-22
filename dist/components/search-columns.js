@@ -45,19 +45,15 @@ function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? _react2.default.createElement(
     _select2.default,
     {
+      allowClear: true,
       style: { width: '100%' },
       name: column.property,
       placeholder: column.filterPlaceholder || "",
-      defaultValue: query[column.property] || "all",
+      defaultValue: query[column.property] || "",
       onChange: function onChange(value) {
         return onCheckChange(column.property, value);
       }
     },
-    _react2.default.createElement(
-      Option,
-      { value: 'all' },
-      "All"
-    ),
     _react2.default.createElement(
       Option,
       { value: true },
@@ -187,7 +183,18 @@ var SearchColumns = function SearchColumns(_ref) {
   };
 
   var onCheckChange = function onCheckChange(name, value) {
-    onChange(_extends({}, query, _defineProperty({}, name, value)));
+    if (value) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+    if (value === false) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+    if (value === null) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+    if ((query[name] || query[name] === null || query[name] === false) && !value) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
   };
 
   var onMinDateChange = function onMinDateChange(name, date) {
