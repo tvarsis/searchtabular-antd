@@ -49,7 +49,7 @@ function renderCheckbox(column, query, onCheckChange) {
       style: { width: '100%' },
       name: column.property,
       placeholder: column.filterPlaceholder || "",
-      defaultValue: query[column.property] || "",
+      defaultValue: query[column.property] === undefined ? "" : query[column.property],
       onChange: function onChange(value) {
         return onCheckChange(column.property, value);
       }
