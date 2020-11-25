@@ -1,15 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Checkbox from "antd/lib/checkbox";
-import DatePicker from "antd/lib/date-picker";
-import Input from "antd/lib/input";
-import InputNumber from "antd/lib/input-number";
-import Select from "antd/lib/select";
+import { Checkbox, DatePicker, Input, InputNumber, Select } from 'antd';
 const { Option } = Select;
 
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? (
+    <Checkbox
+      indeterminate={typeof query[column.property] === "undefined"}
+      name={column.property}
+      checked={query[column.property] || false}
+      onChange={onCheckChange}
+    />
+  ) : (
+    ""
+  );
+}
+
+
+function renderUpdatedCheckbox(column, query, onCheckChange) {
+  return column && column.property && column.type === "updatedCheckbox" ? (
     <Select
       allowClear
       style={{ width: '100%' }}
@@ -106,7 +116,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? (
+  return column && column.property && !column.checkbox && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" && column.type !== "updatedCheckbox" ? (
     <Input
       onChange={onQueryChange}
       name={column.property}
@@ -126,7 +136,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
     });
   };
 
-  const onCheckChange = (name, value) => {
+  const onCheckChangeUpdated = (name, value) => {
     if(value){
       onChange({
         ...query,
@@ -153,6 +163,12 @@ const SearchColumns = ({ columns, query, onChange }) => {
     }
   };
 
+  const onCheckChange = (event) => {
+    onChange({
+      ...query,
+      [event.target.name]: query[event.target.name] === false && event.target.checked ? undefined : event.target.checked
+    });
+  };
 
   const onMinDateChange = (name, date) => {
     const dateFilter = query[name] || {};
@@ -219,6 +235,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
       {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
           {renderCheckbox(column, query, onCheckChange)}
+          {renderUpdatedCheckbox(column, query, onCheckChangeUpdated)}
           {renderDate(column, query, onMinDateChange, onMaxDateChange)}
           {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}
           {renderText(column, query, onQueryChange)}
