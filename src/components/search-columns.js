@@ -118,6 +118,16 @@ function renderText(column, query, onQueryChange) {
   );
 }
 
+function renderReactElement(column) {
+  return column && column.property && column.type === "reactElement" ? (
+    <div>
+      {column.reactElement}
+    </div>
+  ) : (
+    ""
+  );
+}
+
 const SearchColumns = ({ columns, query, onChange }) => {
   const onQueryChange = (event) => {
     onChange({
@@ -218,6 +228,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
     <tr>
       {columns.map((column, i) => (
         <th key={`${column.property || i}-column-filter`} className="column-filter">
+          {renderReactElement(column)}
           {renderCheckbox(column, query, onCheckChange)}
           {renderDate(column, query, onMinDateChange, onMaxDateChange)}
           {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}

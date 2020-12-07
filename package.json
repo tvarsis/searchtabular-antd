@@ -1,6 +1,6 @@
 {
   "name": "searchtabular-antd",
-  "version": "1.8.1",
+  "version": "4.0.1",
   "description": "Search utilities",
   "main": "dist",
   "scripts": {
