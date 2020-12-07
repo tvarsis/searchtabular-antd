@@ -173,6 +173,14 @@ function renderText(column, query, onQueryChange) {
   }) : "";
 }
 
+function renderReactElement(column) {
+  return column && column.property && column.type === "reactElement" ? _react2.default.createElement(
+    "div",
+    null,
+    column.reactElement
+  ) : "";
+}
+
 var SearchColumns = function SearchColumns(_ref) {
   var columns = _ref.columns,
       query = _ref.query,
@@ -246,6 +254,7 @@ var SearchColumns = function SearchColumns(_ref) {
       return _react2.default.createElement(
         "th",
         { key: (column.property || i) + "-column-filter", className: "column-filter" },
+        renderReactElement(column),
         renderCheckbox(column, query, onCheckChange),
         renderDate(column, query, onMinDateChange, onMaxDateChange),
         renderNumber(column, query, onMinNumberChange, onMaxNumberChange),
