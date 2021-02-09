@@ -15,7 +15,7 @@ function renderCheckbox(column, query, onCheckChange) {
       style={{ width: '100%' }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
-      defaultValue={query[column.property] === undefined ? "" : query[column.property]}
+      defaultValue={query[column.property] === undefined ? undefined : query[column.property]}
       onChange={(value) => onCheckChange(column.property, value)}
     >
       <Option value={true}>True</Option>
@@ -34,7 +34,7 @@ function renderDropDown(column, query, onDropDownChange) {
       style={{ width: '100%' }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
-      value={query[column.property] || ""}
+      value={query[column.property] === undefined ? undefined : query[column.property]}
       onChange={(value) => onDropDownChange(column.property, value)}
     >
       {column.options && column.options.map((fieldTypeOption, index) => (
