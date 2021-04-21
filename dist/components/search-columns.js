@@ -34,6 +34,10 @@ var _select = require("antd/lib/select");
 
 var _select2 = _interopRequireDefault(_select);
 
+var _reactIntlUniversal = require("react-intl-universal");
+
+var _reactIntlUniversal2 = _interopRequireDefault(_reactIntlUniversal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -46,28 +50,27 @@ function renderCheckbox(column, query, onCheckChange) {
     _select2.default,
     {
       allowClear: true,
-      style: { width: '100%' },
+      style: { width: "100%" },
       name: column.property,
       placeholder: column.filterPlaceholder || "",
       defaultValue: query[column.property] === undefined ? undefined : query[column.property],
       onChange: function onChange(value) {
         return onCheckChange(column.property, value);
-      }
-    },
+      } },
     _react2.default.createElement(
       Option,
       { value: true },
-      "True"
+      _reactIntlUniversal2.default.get("shared.true")
     ),
     _react2.default.createElement(
       Option,
       { value: false },
-      "False"
+      _reactIntlUniversal2.default.get("shared.false")
     ),
     _react2.default.createElement(
       Option,
       { value: null },
-      "Undefined"
+      _reactIntlUniversal2.default.get("shared.undefined")
     )
   ) : "";
 }
@@ -77,14 +80,13 @@ function renderDropDown(column, query, onDropDownChange) {
     _select2.default,
     {
       allowClear: true,
-      style: { width: '100%' },
+      style: { width: "100%" },
       name: column.property,
       placeholder: column.filterPlaceholder || "",
       value: query[column.property] === undefined ? undefined : query[column.property],
       onChange: function onChange(value) {
         return onDropDownChange(column.property, value);
-      }
-    },
+      } },
     column.options && column.options.map(function (fieldTypeOption, index) {
       return _react2.default.createElement(
         Option,
@@ -104,7 +106,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       "div",
       null,
       _react2.default.createElement(_datePicker2.default, {
-        placeholder: "From date",
+        placeholder: _reactIntlUniversal2.default.get("shared.fromDate"),
         style: { width: "100%" },
         value: queryVal.min,
         onChange: function onChange(date) {
@@ -116,7 +118,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
       "div",
       { style: { marginTop: 10 } },
       _react2.default.createElement(_datePicker2.default, {
-        placeholder: "To date",
+        placeholder: _reactIntlUniversal2.default.get("shared.toDate"),
         style: { width: "100%" },
         value: queryVal.max,
         onChange: function onChange(date) {
@@ -139,7 +141,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
       "div",
       null,
       _react2.default.createElement(_inputNumber2.default, {
-        placeholder: "From",
+        placeholder: _reactIntlUniversal2.default.get("shared.from"),
         name: column.property,
         style: { width: "100%" },
         value: min,
@@ -152,7 +154,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
       "div",
       { style: { marginTop: 10 } },
       _react2.default.createElement(_inputNumber2.default, {
-        placeholder: "To",
+        placeholder: _reactIntlUniversal2.default.get("shared.to"),
         name: column.property,
         style: { width: "100%" },
         value: max,
