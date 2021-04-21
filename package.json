@@ -44,11 +44,9 @@
   "bugs": {
     "url": "https://github.com/tvarsis/searchtabular-antd/issues"
   },
-  "dependencies": {
-    "antd": "4.15.2",
-    "moment": "2.29.1"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "antd": "^4.15.2",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
@@ -71,16 +69,21 @@
     "jest": "19.0.2",
     "jest-cli": "19.0.2",
     "lodash": "4.17.21",
+    "moment": "^2.29.1",
     "prettier": "1.19.1",
     "prop-types": "15.7.2",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-hot-loader": "^4.12.21",
+    "react-intl-universal": "2.2.2",
     "rimraf": "^3.0.2"
   },
   "peerDependencies": {
-    "lodash": ">= 3.0.0 < 5.0.0",
-    "react": ">= 16.0.0 < 17.0.0"
+    "antd": ">= 4.0.0 < 5.0.0",
+    "lodash": ">= 4.0.0 < 5.0.0",
+    "moment": ">= 2.0.0 3 5.0.0",
+    "react": ">= 16.0.0 < 17.0.0",
+    "react-intl-universal": ">= 2.0.0 < 3.0.0"
   },
   "pre-push": [
     "test:all"
