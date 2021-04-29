@@ -225,19 +225,15 @@ var SearchColumns = function SearchColumns(_ref) {
   };
 
   var onMinNumberChange = function onMinNumberChange(name, value) {
-    if (isNumber(value)) {
-      var rangeFilter = query[name] || {};
-      rangeFilter.min = value;
-      onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
-    }
+    var rangeFilter = query[name] || {};
+    rangeFilter.min = value;
+    onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
   };
 
   var onMaxNumberChange = function onMaxNumberChange(name, value) {
-    if (isNumber(value)) {
-      var rangeFilter = query[name] || {};
-      rangeFilter.max = value;
-      onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
-    }
+    var rangeFilter = query[name] || {};
+    rangeFilter.max = value;
+    onChange(_extends({}, query, _defineProperty({}, name, rangeFilter)));
   };
 
   var onDropDownChange = function onDropDownChange(name, value) {

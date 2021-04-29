@@ -186,25 +186,21 @@ const SearchColumns = ({ columns, query, onChange }) => {
   };
 
   const onMinNumberChange = (name, value) => {
-    if (isNumber(value)) {
-      const rangeFilter = query[name] || {};
-      rangeFilter.min = value;
-      onChange({
-        ...query,
-        [name]: rangeFilter
-      });
-    }
+    const rangeFilter = query[name] || {};
+    rangeFilter.min = value;
+    onChange({
+      ...query,
+      [name]: rangeFilter
+    });
   };
 
   const onMaxNumberChange = (name, value) => {
-    if (isNumber(value)) {
-      const rangeFilter = query[name] || {};
-      rangeFilter.max = value;
-      onChange({
-        ...query,
-        [name]: rangeFilter
-      });
-    }
+    const rangeFilter = query[name] || {};
+    rangeFilter.max = value;
+    onChange({
+      ...query,
+      [name]: rangeFilter
+    });
   };
 
   const onDropDownChange = (name, value) => {
