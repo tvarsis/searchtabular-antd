@@ -7,6 +7,9 @@ import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
 import intl from "react-intl-universal";
 const { Option } = Select;
+const NUMBER_MAX = 2147483647 - 47;
+const NUMBER_MIN = -2147483648 + 48;
+const TEXT_MAX_LENGTH = 300;
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? (
@@ -86,6 +89,8 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
           name={column.property}
           style={{ width: "100%" }}
           value={min}
+          min={NUMBER_MIN}
+          max={NUMBER_MAX}
           onChange={value => onMinNumberChange(column.property, value)}
         />
       </div>
@@ -95,6 +100,8 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
           name={column.property}
           style={{ width: "100%" }}
           value={max}
+          min={NUMBER_MIN}
+          max={NUMBER_MAX}
           onChange={value => onMaxNumberChange(column.property, value)}
         />
       </div>
@@ -117,6 +124,7 @@ function renderText(column, query, onQueryChange) {
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
       value={query[column.property] || ""}
+      maxLength={TEXT_MAX_LENGTH}
     />
   ) : (
     ""

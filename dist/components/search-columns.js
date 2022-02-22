@@ -44,6 +44,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var Option = _select2.default.Option;
 
+var NUMBER_MAX = 2147483647 - 47;
+var NUMBER_MIN = -2147483648 + 48;
+var TEXT_MAX_LENGTH = 300;
 
 function renderCheckbox(column, query, onCheckChange) {
   return column && column.property && column.checkbox ? _react2.default.createElement(
@@ -145,6 +148,8 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
         name: column.property,
         style: { width: "100%" },
         value: min,
+        min: NUMBER_MIN,
+        max: NUMBER_MAX,
         onChange: function onChange(value) {
           return onMinNumberChange(column.property, value);
         }
@@ -158,6 +163,8 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
         name: column.property,
         style: { width: "100%" },
         value: max,
+        min: NUMBER_MIN,
+        max: NUMBER_MAX,
         onChange: function onChange(value) {
           return onMaxNumberChange(column.property, value);
         }
@@ -171,7 +178,8 @@ function renderText(column, query, onQueryChange) {
     onChange: onQueryChange,
     name: column.property,
     placeholder: column.filterPlaceholder || "",
-    value: query[column.property] || ""
+    value: query[column.property] || "",
+    maxLength: TEXT_MAX_LENGTH
   }) : "";
 }
 
