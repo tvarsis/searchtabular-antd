@@ -19,6 +19,7 @@ function renderCheckbox(column, query, onCheckChange) {
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
       defaultValue={query[column.property] === undefined ? undefined : query[column.property]}
+      value={query[column.property] === undefined ? undefined : query[column.property]}
       onChange={value => onCheckChange(column.property, value)}>
       <Option value={true}>{intl.get("shared.true")}</Option>
       <Option value={false}>{intl.get("shared.false")}</Option>
