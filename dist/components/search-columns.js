@@ -138,7 +138,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   var min = queryVal.min || queryVal.min === 0 ? queryVal.min : "";
   var max = queryVal.max || queryVal.max === 0 ? queryVal.max : "";
 
-  return column && column.property && column.type === "number" ? _react2.default.createElement(
+  return column && column.property && !column.custom && column.type === "number" ? _react2.default.createElement(
     "div",
     null,
     _react2.default.createElement(
@@ -175,7 +175,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? _react2.default.createElement(_input2.default, {
+  return column && !column.custom && column.property && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? _react2.default.createElement(_input2.default, {
     onChange: onQueryChange,
     name: column.property,
     placeholder: column.filterPlaceholder || "",
@@ -189,6 +189,33 @@ function renderReactElement(column) {
     "div",
     null,
     column.reactElement
+  ) : "";
+}
+function renderCustomDropDown(column, query, onCustomDropDownChange) {
+
+  return column && column.property && column.custom && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "dropdown" ? _react2.default.createElement(
+    _select2.default,
+    {
+      allowClear: true,
+      style: { width: "100%" },
+      name: column.property,
+      placeholder: column.filterPlaceholder || "",
+      value: query[column.property] === undefined ? undefined : query[column.property],
+      onChange: function onChange(value) {
+        return onCustomDropDownChange(column.property, value);
+      } },
+    column.options && column.options.map(function (fieldTypeOption, index) {
+      return _react2.default.createElement(
+        Option,
+        { key: index, value: fieldTypeOption },
+        fieldTypeOption
+      );
+    }),
+    !column.options && _react2.default.createElement(
+      Option,
+      { value: null },
+      _reactIntlUniversal2.default.get("shared.undefined")
+    )
   ) : "";
 }
 
@@ -254,6 +281,18 @@ var SearchColumns = function SearchColumns(_ref) {
     }
   };
 
+  var onCustomDropDownChange = function onCustomDropDownChange(name, value) {
+    if (value) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+    if (value === null) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+    if ((query[name] || query[name] === null) && !value) {
+      onChange(_extends({}, query, _defineProperty({}, name, value)));
+    }
+  };
+
   return _react2.default.createElement(
     "tr",
     null,
@@ -266,7 +305,8 @@ var SearchColumns = function SearchColumns(_ref) {
         renderDate(column, query, onMinDateChange, onMaxDateChange),
         renderNumber(column, query, onMinNumberChange, onMaxNumberChange),
         renderText(column, query, onQueryChange),
-        renderDropDown(column, query, onDropDownChange)
+        renderDropDown(column, query, onDropDownChange),
+        renderCustomDropDown(column, query, onCustomDropDownChange)
       );
     })
   );
