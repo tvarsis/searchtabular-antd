@@ -149,13 +149,13 @@ function renderCustomDropDown(column, query, onCustomDropDownChange) {
       placeholder={column.filterPlaceholder || ""}
       value={query[column.property] === undefined ? undefined : query[column.property]}
       onChange={value => onCustomDropDownChange(column.property, value)}>
+      <Option value={null}>{intl.get("shared.undefined")}</Option>
       {column.options &&
         column.options.map((fieldTypeOption, index) => (
           <Option key={index} value={fieldTypeOption}>
             {fieldTypeOption}
           </Option>
         ))}
-      {!column.options  && <Option value={null}>{intl.get("shared.undefined")}</Option> }
     </Select>
   ) : (
     ""

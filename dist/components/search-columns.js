@@ -204,18 +204,18 @@ function renderCustomDropDown(column, query, onCustomDropDownChange) {
       onChange: function onChange(value) {
         return onCustomDropDownChange(column.property, value);
       } },
+    _react2.default.createElement(
+      Option,
+      { value: null },
+      _reactIntlUniversal2.default.get("shared.undefined")
+    ),
     column.options && column.options.map(function (fieldTypeOption, index) {
       return _react2.default.createElement(
         Option,
         { key: index, value: fieldTypeOption },
         fieldTypeOption
       );
-    }),
-    !column.options && _react2.default.createElement(
-      Option,
-      { value: null },
-      _reactIntlUniversal2.default.get("shared.undefined")
-    )
+    })
   ) : "";
 }
 
