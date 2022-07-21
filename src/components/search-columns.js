@@ -82,7 +82,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   const min = queryVal.min || queryVal.min === 0 ? queryVal.min : "";
   const max = queryVal.max || queryVal.max === 0 ? queryVal.max : "";
 
-  return column && column.property && !column.custom && column.type === "number" ? (
+  return column && column.property && column.type === "number" ? (
     <div>
       <div>
         <InputNumber
@@ -114,13 +114,13 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 
 function renderText(column, query, onQueryChange) {
   return column &&
-    ! column.custom &&
     column.property &&
     !column.checkbox &&
     column.type !== "reactElement" &&
     column.type !== "date" &&
     column.type !== "number" &&
-    column.type !== "dropdown" ? (
+    column.type !== "dropdown" &&
+    column.type !== "picklist" ? (
     <Input
       onChange={onQueryChange}
       name={column.property}
@@ -138,10 +138,8 @@ function renderReactElement(column) {
 }
 function renderCustomDropDown(column, query, onCustomDropDownChange) {
  
-  return column && column.property && column.custom && (!column.checkbox &&
-    column.type !== "reactElement" &&
-    column.type !== "date" &&
-    column.type !== "dropdown" ) ? (
+  return column && column.property && (!column.checkbox &&
+    column.type === "picklist" ) ? (
     <Select
       allowClear
       style={{ width: "100%" }}

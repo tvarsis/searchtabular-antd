@@ -138,7 +138,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   var min = queryVal.min || queryVal.min === 0 ? queryVal.min : "";
   var max = queryVal.max || queryVal.max === 0 ? queryVal.max : "";
 
-  return column && column.property && !column.custom && column.type === "number" ? _react2.default.createElement(
+  return column && column.property && column.type === "number" ? _react2.default.createElement(
     "div",
     null,
     _react2.default.createElement(
@@ -175,7 +175,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 }
 
 function renderText(column, query, onQueryChange) {
-  return column && !column.custom && column.property && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? _react2.default.createElement(_input2.default, {
+  return column && column.property && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" && column.type !== "picklist" ? _react2.default.createElement(_input2.default, {
     onChange: onQueryChange,
     name: column.property,
     placeholder: column.filterPlaceholder || "",
@@ -193,7 +193,7 @@ function renderReactElement(column) {
 }
 function renderCustomDropDown(column, query, onCustomDropDownChange) {
 
-  return column && column.property && column.custom && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "dropdown" ? _react2.default.createElement(
+  return column && column.property && !column.checkbox && column.type === "picklist" ? _react2.default.createElement(
     _select2.default,
     {
       allowClear: true,
