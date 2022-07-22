@@ -119,8 +119,7 @@ function renderText(column, query, onQueryChange) {
     column.type !== "reactElement" &&
     column.type !== "date" &&
     column.type !== "number" &&
-    column.type !== "dropdown" &&
-    column.type !== "picklist" ? (
+    column.type !== "dropdown" ? (
     <Input
       onChange={onQueryChange}
       name={column.property}
