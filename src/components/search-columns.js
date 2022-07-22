@@ -136,29 +136,6 @@ function renderText(column, query, onQueryChange) {
 function renderReactElement(column) {
   return column && column.property && column.type === "reactElement" ? <div>{column.reactElement}</div> : "";
 }
-function renderCustomDropDown(column, query, onCustomDropDownChange) {
- 
-  return column && column.property && (!column.checkbox &&
-    column.type === "picklist" ) ? (
-    <Select
-      allowClear
-      style={{ width: "100%" }}
-      name={column.property}
-      placeholder={column.filterPlaceholder || ""}
-      value={query[column.property] === undefined ? undefined : query[column.property]}
-      onChange={value => onCustomDropDownChange(column.property, value)}>
-      <Option value={null}>{intl.get("shared.undefined")}</Option>
-      {column.options &&
-        column.options.map((fieldTypeOption, index) => (
-          <Option key={index} value={fieldTypeOption}>
-            {fieldTypeOption}
-          </Option>
-        ))}
-    </Select>
-  ) : (
-    ""
-  );
-}
 
 const SearchColumns = ({ columns, query, onChange }) => {
   const onQueryChange = event => {
@@ -243,21 +220,6 @@ const SearchColumns = ({ columns, query, onChange }) => {
         [name]: value
       });
     }
-    if (query[name] && !value) {
-      onChange({
-        ...query,
-        [name]: value
-      });
-    }
-  };
-
-  const onCustomDropDownChange = (name, value) => {
-    if (value) {
-      onChange({
-        ...query,
-        [name]: value
-      });
-    }
     if (value === null) {
       onChange({
         ...query,
@@ -272,6 +234,8 @@ const SearchColumns = ({ columns, query, onChange }) => {
     }
   };
 
+
+
   return (
     <tr>
       {columns.map((column, i) => (
@@ -282,7 +246,6 @@ const SearchColumns = ({ columns, query, onChange }) => {
           {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}
           {renderText(column, query, onQueryChange)}
           {renderDropDown(column, query, onDropDownChange)}
-          {renderCustomDropDown(column, query, onCustomDropDownChange)}
         </th>
       ))}
     </tr>

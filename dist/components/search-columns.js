@@ -191,33 +191,6 @@ function renderReactElement(column) {
     column.reactElement
   ) : "";
 }
-function renderCustomDropDown(column, query, onCustomDropDownChange) {
-
-  return column && column.property && !column.checkbox && column.type === "picklist" ? _react2.default.createElement(
-    _select2.default,
-    {
-      allowClear: true,
-      style: { width: "100%" },
-      name: column.property,
-      placeholder: column.filterPlaceholder || "",
-      value: query[column.property] === undefined ? undefined : query[column.property],
-      onChange: function onChange(value) {
-        return onCustomDropDownChange(column.property, value);
-      } },
-    _react2.default.createElement(
-      Option,
-      { value: null },
-      _reactIntlUniversal2.default.get("shared.undefined")
-    ),
-    column.options && column.options.map(function (fieldTypeOption, index) {
-      return _react2.default.createElement(
-        Option,
-        { key: index, value: fieldTypeOption },
-        fieldTypeOption
-      );
-    })
-  ) : "";
-}
 
 var SearchColumns = function SearchColumns(_ref) {
   var columns = _ref.columns,
@@ -276,15 +249,6 @@ var SearchColumns = function SearchColumns(_ref) {
     if (value) {
       onChange(_extends({}, query, _defineProperty({}, name, value)));
     }
-    if (query[name] && !value) {
-      onChange(_extends({}, query, _defineProperty({}, name, value)));
-    }
-  };
-
-  var onCustomDropDownChange = function onCustomDropDownChange(name, value) {
-    if (value) {
-      onChange(_extends({}, query, _defineProperty({}, name, value)));
-    }
     if (value === null) {
       onChange(_extends({}, query, _defineProperty({}, name, value)));
     }
@@ -305,8 +269,7 @@ var SearchColumns = function SearchColumns(_ref) {
         renderDate(column, query, onMinDateChange, onMaxDateChange),
         renderNumber(column, query, onMinNumberChange, onMaxNumberChange),
         renderText(column, query, onQueryChange),
-        renderDropDown(column, query, onDropDownChange),
-        renderCustomDropDown(column, query, onCustomDropDownChange)
+        renderDropDown(column, query, onDropDownChange)
       );
     })
   );
