@@ -82,7 +82,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   const min = queryVal.min || queryVal.min === 0 ? queryVal.min : "";
   const max = queryVal.max || queryVal.max === 0 ? queryVal.max : "";
 
-  return column && column.property && !column.custom && column.type === "number" ? (
+  return column && column.property && column.type === "number" ? (
     <div>
       <div>
         <InputNumber
@@ -114,7 +114,6 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
 
 function renderText(column, query, onQueryChange) {
   return column &&
-    ! column.custom &&
     column.property &&
     !column.checkbox &&
     column.type !== "reactElement" &&
@@ -135,31 +134,6 @@ function renderText(column, query, onQueryChange) {
 
 function renderReactElement(column) {
   return column && column.property && column.type === "reactElement" ? <div>{column.reactElement}</div> : "";
-}
-function renderCustomDropDown(column, query, onCustomDropDownChange) {
- 
-  return column && column.property && column.custom && (!column.checkbox &&
-    column.type !== "reactElement" &&
-    column.type !== "date" &&
-    column.type !== "dropdown" ) ? (
-    <Select
-      allowClear
-      style={{ width: "100%" }}
-      name={column.property}
-      placeholder={column.filterPlaceholder || ""}
-      value={query[column.property] === undefined ? undefined : query[column.property]}
-      onChange={value => onCustomDropDownChange(column.property, value)}>
-      <Option value={null}>{intl.get("shared.undefined")}</Option>
-      {column.options &&
-        column.options.map((fieldTypeOption, index) => (
-          <Option key={index} value={fieldTypeOption}>
-            {fieldTypeOption}
-          </Option>
-        ))}
-    </Select>
-  ) : (
-    ""
-  );
 }
 
 const SearchColumns = ({ columns, query, onChange }) => {
@@ -245,21 +219,6 @@ const SearchColumns = ({ columns, query, onChange }) => {
         [name]: value
       });
     }
-    if (query[name] && !value) {
-      onChange({
-        ...query,
-        [name]: value
-      });
-    }
-  };
-
-  const onCustomDropDownChange = (name, value) => {
-    if (value) {
-      onChange({
-        ...query,
-        [name]: value
-      });
-    }
     if (value === null) {
       onChange({
         ...query,
@@ -274,6 +233,8 @@ const SearchColumns = ({ columns, query, onChange }) => {
     }
   };
 
+
+
   return (
     <tr>
       {columns.map((column, i) => (
@@ -284,7 +245,6 @@ const SearchColumns = ({ columns, query, onChange }) => {
           {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}
           {renderText(column, query, onQueryChange)}
           {renderDropDown(column, query, onDropDownChange)}
-          {renderCustomDropDown(column, query, onCustomDropDownChange)}
         </th>
       ))}
     </tr>
