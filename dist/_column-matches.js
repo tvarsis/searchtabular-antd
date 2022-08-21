@@ -41,7 +41,9 @@ var _columnMatches = function _columnMatches(_ref) {
     return false;
   }
   var value = row['_' + property] || row[property];
-  if (value == null) {
+  // handle the checkbox
+
+  if (column && !column.checkbox && value == null) {
     return false;
   }
   // Pick resolved value by convention
