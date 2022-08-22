@@ -20,7 +20,9 @@ const _columnMatches = ({
     return false;
   }
   const value = row[`_${property}`] || row[property];
-  if (value == null) {
+  // handle the checkbox
+
+  if (column && !column.checkbox && value == null) {
     return false;
   }
   // Pick resolved value by convention

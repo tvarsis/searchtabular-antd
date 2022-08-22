@@ -19,18 +19,15 @@ var singleColumn = function singleColumn(_ref) {
       strategy = _ref.strategy,
       transform = _ref.transform;
   return function (rows) {
-    if (!query && query !== false) {
+    if (!query && query !== false && query !== null) {
       return rows;
     }
-
     var ret = columns;
-
     if (searchColumn !== 'all') {
       ret = ret.filter(function (col) {
         return col && col.property === searchColumn;
       });
     }
-
     return rows.filter(function (row) {
       return ret.filter(function (column) {
         return (0, _columnMatches3.default)({
