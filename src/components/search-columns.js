@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Checkbox from "antd/lib/checkbox";
 import DatePicker from "antd/lib/date-picker";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
@@ -18,12 +17,12 @@ function renderCheckbox(column, query, onCheckChange) {
       style={{ width: "100%" }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
-      defaultValue={query[column.property] === undefined ? undefined : query[column.property]}
-      value={query[column.property] === undefined ? undefined : query[column.property]}
+      defaultValue={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
+      value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
       onChange={value => onCheckChange(column.property, value)}>
       <Option value={true}>{intl.get("shared.true")}</Option>
       <Option value={false}>{intl.get("shared.false")}</Option>
-      <Option value={null}>{intl.get("shared.undefined")}</Option>
+      <Option value={'null'}>{intl.get("shared.undefined")}</Option>
     </Select>
   ) : (
     ""

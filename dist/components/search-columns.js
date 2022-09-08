@@ -14,10 +14,6 @@ var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _checkbox = require("antd/lib/checkbox");
-
-var _checkbox2 = _interopRequireDefault(_checkbox);
-
 var _datePicker = require("antd/lib/date-picker");
 
 var _datePicker2 = _interopRequireDefault(_datePicker);
@@ -56,8 +52,8 @@ function renderCheckbox(column, query, onCheckChange) {
       style: { width: "100%" },
       name: column.property,
       placeholder: column.filterPlaceholder || "",
-      defaultValue: query[column.property] === undefined ? undefined : query[column.property],
-      value: query[column.property] === undefined ? undefined : query[column.property],
+      defaultValue: query[column.property] === undefined ? undefined : query[column.property] === null ? 'null' : query[column.property],
+      value: query[column.property] === undefined ? undefined : query[column.property] === null ? 'null' : query[column.property],
       onChange: function onChange(value) {
         return onCheckChange(column.property, value);
       } },
@@ -73,7 +69,7 @@ function renderCheckbox(column, query, onCheckChange) {
     ),
     _react2.default.createElement(
       Option,
-      { value: null },
+      { value: 'null' },
       _reactIntlUniversal2.default.get("shared.undefined")
     )
   ) : "";
