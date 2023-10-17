@@ -30,6 +30,10 @@ var _select = require("antd/lib/select");
 
 var _select2 = _interopRequireDefault(_select);
 
+var _tooltip = require("antd/lib/tooltip");
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
 var _reactIntlUniversal = require("react-intl-universal");
 
 var _reactIntlUniversal2 = _interopRequireDefault(_reactIntlUniversal);
@@ -170,14 +174,19 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   ) : "";
 }
 
-function renderText(column, query, onQueryChange) {
-  return column && column.property && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? _react2.default.createElement(_input2.default, {
-    onChange: onQueryChange,
-    name: column.property,
-    placeholder: column.filterPlaceholder || "",
-    value: query[column.property] || "",
-    maxLength: TEXT_MAX_LENGTH
-  }) : "";
+function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip) {
+  var showTooltip = shouldOpenTooltip(query[column.property]);
+  return column && column.property && !column.checkbox && column.type !== "reactElement" && column.type !== "date" && column.type !== "number" && column.type !== "dropdown" ? _react2.default.createElement(
+    _tooltip2.default,
+    { title: tooltipTitle, open: showTooltip },
+    _react2.default.createElement(_input2.default, {
+      onChange: onQueryChange,
+      name: column.property,
+      placeholder: column.filterPlaceholder || "",
+      value: query[column.property] || "",
+      maxLength: TEXT_MAX_LENGTH
+    })
+  ) : "";
 }
 
 function renderReactElement(column) {
@@ -191,7 +200,9 @@ function renderReactElement(column) {
 var SearchColumns = function SearchColumns(_ref) {
   var columns = _ref.columns,
       query = _ref.query,
-      onChange = _ref.onChange;
+      onChange = _ref.onChange,
+      tooltipTitle = _ref.tooltipTitle,
+      shouldOpenTooltip = _ref.shouldOpenTooltip;
 
   var onQueryChange = function onQueryChange(event) {
     onChange(_extends({}, query, _defineProperty({}, event.target.name, event.target.value)));
@@ -264,7 +275,7 @@ var SearchColumns = function SearchColumns(_ref) {
         renderCheckbox(column, query, onCheckChange),
         renderDate(column, query, onMinDateChange, onMaxDateChange),
         renderNumber(column, query, onMinNumberChange, onMaxNumberChange),
-        renderText(column, query, onQueryChange),
+        renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip),
         renderDropDown(column, query, onDropDownChange)
       );
     })
@@ -274,11 +285,16 @@ var SearchColumns = function SearchColumns(_ref) {
 SearchColumns.propTypes = {
   columns: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
   onChange: _propTypes2.default.func.isRequired,
-  query: _propTypes2.default.object
+  query: _propTypes2.default.object,
+  tooltipTitle: _propTypes2.default.string,
+  shouldOpenTooltip: _propTypes2.default.func
 };
 
 SearchColumns.defaultProps = {
-  query: {}
+  query: {},
+  shouldOpenTooltip: function shouldOpenTooltip() {
+    return false;
+  }
 };
 
 exports.default = SearchColumns;

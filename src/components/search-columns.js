@@ -4,6 +4,7 @@ import DatePicker from "antd/lib/date-picker";
 import Input from "antd/lib/input";
 import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
+import Tooltip from "antd/lib/tooltip";
 import intl from "react-intl-universal";
 const { Option } = Select;
 const NUMBER_MAX = 2147483647 - 47;
@@ -111,7 +112,8 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   );
 }
 
-function renderText(column, query, onQueryChange) {
+function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip) {
+  const showTooltip = shouldOpenTooltip(query[column.property]);
   return column &&
     column.property &&
     !column.checkbox &&
@@ -119,6 +121,7 @@ function renderText(column, query, onQueryChange) {
     column.type !== "date" &&
     column.type !== "number" &&
     column.type !== "dropdown" ? (
+    <Tooltip title={tooltipTitle} open={showTooltip}>
     <Input
       onChange={onQueryChange}
       name={column.property}
@@ -126,6 +129,7 @@ function renderText(column, query, onQueryChange) {
       value={query[column.property] || ""}
       maxLength={TEXT_MAX_LENGTH}
     />
+    </Tooltip>
   ) : (
     ""
   );
@@ -135,7 +139,7 @@ function renderReactElement(column) {
   return column && column.property && column.type === "reactElement" ? <div>{column.reactElement}</div> : "";
 }
 
-const SearchColumns = ({ columns, query, onChange }) => {
+const SearchColumns = ({ columns, query, onChange, tooltipTitle, shouldOpenTooltip }) => {
   const onQueryChange = event => {
     onChange({
       ...query,
@@ -242,7 +246,7 @@ const SearchColumns = ({ columns, query, onChange }) => {
           {renderCheckbox(column, query, onCheckChange)}
           {renderDate(column, query, onMinDateChange, onMaxDateChange)}
           {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}
-          {renderText(column, query, onQueryChange)}
+          {renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip)}
           {renderDropDown(column, query, onDropDownChange)}
         </th>
       ))}
@@ -253,11 +257,14 @@ const SearchColumns = ({ columns, query, onChange }) => {
 SearchColumns.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
-  query: PropTypes.object
+  query: PropTypes.object,
+  tooltipTitle: PropTypes.string,
+  shouldOpenTooltip: PropTypes.func
 };
 
 SearchColumns.defaultProps = {
-  query: {}
+  query: {},
+  shouldOpenTooltip: () => false
 };
 
 export default SearchColumns;
