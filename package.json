@@ -46,7 +46,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "antd": "^4.22.8",
+    "antd": "5.9.0",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
@@ -80,7 +80,6 @@
     "rc-util": "^5.23.0"
   },
   "peerDependencies": {
-    "antd": ">= 4.0.0 < 5.0.0",
     "lodash": ">= 4.0.0 < 5.0.0",
     "moment": ">= 2.0.0 < 5.0.0",
     "react": ">= 16.0.0 < 17.0.0",
