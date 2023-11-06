@@ -6,6 +6,9 @@ import InputNumber from "antd/lib/input-number";
 import Select from "antd/lib/select";
 import Tooltip from "antd/lib/tooltip";
 import intl from "react-intl-universal";
+import momentGenerateConfig from "rc-picker/lib/generate/moment";
+
+const AntDatePicker = DatePicker.generatePicker(momentGenerateConfig);
 const { Option } = Select;
 const NUMBER_MAX = 2147483647 - 47;
 const NUMBER_MIN = -2147483648 + 48;
@@ -56,7 +59,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
   return column && column.property && column.type === "date" ? (
     <div>
       <div>
-        <DatePicker
+        <AntDatePicker
           placeholder={intl.get("shared.fromDate")}
           style={{ width: "100%" }}
           value={queryVal.min}
@@ -64,7 +67,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
         />
       </div>
       <div style={{ marginTop: 10 }}>
-        <DatePicker
+        <AntDatePicker
           placeholder={intl.get("shared.toDate")}
           style={{ width: "100%" }}
           value={queryVal.max}

@@ -38,10 +38,15 @@ var _reactIntlUniversal = require("react-intl-universal");
 
 var _reactIntlUniversal2 = _interopRequireDefault(_reactIntlUniversal);
 
+var _moment = require("rc-picker/lib/generate/moment");
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var AntDatePicker = _datePicker2.default.generatePicker(_moment2.default);
 var Option = _select2.default.Option;
 
 var NUMBER_MAX = 2147483647 - 47;
@@ -109,7 +114,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     _react2.default.createElement(
       "div",
       null,
-      _react2.default.createElement(_datePicker2.default, {
+      _react2.default.createElement(AntDatePicker, {
         placeholder: _reactIntlUniversal2.default.get("shared.fromDate"),
         style: { width: "100%" },
         value: queryVal.min,
@@ -121,7 +126,7 @@ function renderDate(column, query, onMinDateChange, onMaxDateChange) {
     _react2.default.createElement(
       "div",
       { style: { marginTop: 10 } },
-      _react2.default.createElement(_datePicker2.default, {
+      _react2.default.createElement(AntDatePicker, {
         placeholder: _reactIntlUniversal2.default.get("shared.toDate"),
         style: { width: "100%" },
         value: queryVal.max,
