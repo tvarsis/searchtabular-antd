@@ -96,6 +96,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
           min={NUMBER_MIN}
           max={NUMBER_MAX}
           onChange={value => onMinNumberChange(column.property, value)}
+          aria-label={column.header?.label || column.property}
         />
       </div>
       <div style={{ marginTop: 10 }}>
@@ -107,6 +108,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
           min={NUMBER_MIN}
           max={NUMBER_MAX}
           onChange={value => onMaxNumberChange(column.property, value)}
+          aria-label={column.header?.label || column.property}
         />
       </div>
     </div>
@@ -131,6 +133,7 @@ function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenToolti
       placeholder={column.filterPlaceholder || ""}
       value={query[column.property] || ""}
       maxLength={TEXT_MAX_LENGTH}
+      aria-label={column.header?.label || column.property}
     />
     </Tooltip>
   ) : (
