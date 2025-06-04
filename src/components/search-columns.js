@@ -21,6 +21,7 @@ function renderCheckbox(column, query, onCheckChange) {
       style={{ width: "100%" }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
+      aria-label={column.header?.label || column.property}
       defaultValue={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
       value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
       onChange={value => onCheckChange(column.property, value)}>
@@ -40,6 +41,7 @@ function renderDropDown(column, query, onDropDownChange) {
       style={{ width: "100%" }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
+      aria-label={column.header?.label || column.property}
       value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
       onChange={value => onDropDownChange(column.property, value)}>
       {column.options &&
