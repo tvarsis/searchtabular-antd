@@ -4,13 +4,13 @@
   "description": "Search utilities",
   "main": "dist",
   "scripts": {
-    "test:all": "npm run test:lint && npm test",
+    "test:all": "yarn test:lint && yarn test",
     "test": "jest --",
     "test:coverage": "jest --coverage --",
     "test:lint": "eslint . --ext .js --cache",
     "test:watch": "jest --watch --",
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
-    "preversion": "npm run test:all && npm run build && git commit --allow-empty -am \"Update dist\""
+    "preversion": "yarn test:all && yarn build && git commit --allow-empty -am \"Update dist\""
   },
   "repository": {
     "type": "git",
