@@ -22,12 +22,24 @@ function renderCheckbox(column, query, onCheckChange) {
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
       aria-label={column.header?.label || column.property}
-      defaultValue={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
-      value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
+      defaultValue={
+        query[column.property] === undefined
+          ? undefined
+          : query[column.property] === null
+          ? "null"
+          : query[column.property]
+      }
+      value={
+        query[column.property] === undefined
+          ? undefined
+          : query[column.property] === null
+          ? "null"
+          : query[column.property]
+      }
       onChange={value => onCheckChange(column.property, value)}>
       <Option value={true}>{intl.get("shared.true")}</Option>
       <Option value={false}>{intl.get("shared.false")}</Option>
-      <Option value={'null'}>{intl.get("shared.undefined")}</Option>
+      <Option value={"null"}>{intl.get("shared.undefined")}</Option>
     </Select>
   ) : (
     ""
@@ -42,7 +54,13 @@ function renderDropDown(column, query, onDropDownChange) {
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
       aria-label={column.header?.label || column.property}
-      value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
+      value={
+        query[column.property] === undefined
+          ? undefined
+          : query[column.property] === null
+          ? "null"
+          : query[column.property]
+      }
       onChange={value => onDropDownChange(column.property, value)}>
       {column.options &&
         column.options.map((fieldTypeOption, index) => (
@@ -129,14 +147,14 @@ function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenToolti
     column.type !== "number" &&
     column.type !== "dropdown" ? (
     <Tooltip title={tooltipTitle} open={showTooltip}>
-    <Input
-      onChange={onQueryChange}
-      name={column.property}
-      placeholder={column.filterPlaceholder || ""}
-      value={query[column.property] || ""}
-      maxLength={TEXT_MAX_LENGTH}
-      aria-label={column.header?.label || column.property}
-    />
+      <Input
+        onChange={onQueryChange}
+        name={column.property}
+        placeholder={column.filterPlaceholder || ""}
+        value={query[column.property] || ""}
+        maxLength={TEXT_MAX_LENGTH}
+        aria-label={column.header?.label || column.property}
+      />
     </Tooltip>
   ) : (
     ""
@@ -243,8 +261,6 @@ const SearchColumns = ({ columns, query, onChange, tooltipTitle, shouldOpenToolt
       });
     }
   };
-
-
 
   return (
     <tr>
