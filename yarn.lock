@@ -203,7 +203,7 @@
     "@babel/traverse" "^7.27.1"
     "@babel/types" "^7.27.1"
 
-"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.0.0-beta.49", "@babel/helper-module-imports@^7.27.1":
+"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.27.1":
   version "7.27.1"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.27.1.tgz#7ef769a323e2655e126673bb6d2d6913bbead204"
   integrity sha512-0gSFWUPNXNopqtIPQvlD5WgXYI5GY2kP2cCvoT8kczjbfcfuIljTbcWrulD1CIPIX2gt1wghbDy08yE1p+/r3w==
@@ -1034,7 +1034,7 @@
     debug "^4.3.1"
     globals "^11.1.0"
 
-"@babel/types@^7.0.0", "@babel/types@^7.0.0-beta.49", "@babel/types@^7.20.7", "@babel/types@^7.27.1", "@babel/types@^7.27.3", "@babel/types@^7.27.6", "@babel/types@^7.3.3", "@babel/types@^7.4.4":
+"@babel/types@^7.0.0", "@babel/types@^7.20.7", "@babel/types@^7.23.0", "@babel/types@^7.27.1", "@babel/types@^7.27.3", "@babel/types@^7.27.6", "@babel/types@^7.3.3", "@babel/types@^7.4.4":
   version "7.27.6"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.27.6.tgz#a434ca7add514d4e646c80f7375c0aa2befc5535"
   integrity sha512-ETyHEk2VHHvl9b9jZP5IHPavHYk57EhanlRRuae9XCpb/j5bDCbPPMOBfCWhnl/7EDJz0jEMCi/RhccCE8r1+Q==
@@ -1924,13 +1924,13 @@ babel-plugin-jest-hoist@^29.6.3:
     "@types/babel__core" "^7.1.14"
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-lodash@^3.2.11:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/babel-plugin-lodash/-/babel-plugin-lodash-3.3.4.tgz#4f6844358a1340baed182adbeffa8df9967bc196"
-  integrity sha512-yDZLjK7TCkWl1gpBeBGmuaDIFhZKmkoL+Cu2MUUjv5VxUZx/z7tBGBCBcQs5RI1Bkz5LLmNdjx7paOyQtMovyg==
+"babel-plugin-lodash@npm:@timbryandev/babel-plugin-lodash":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@timbryandev/babel-plugin-lodash/-/babel-plugin-lodash-1.0.2.tgz#0a66e519251ff9917f6190a7216b1f7e556417fc"
+  integrity sha512-a+5ueKSLWWo5z4bSJgNFEsEpYB75BJb95MsgXUEaGRotSPXCvKpb5EpeQXFCjiJNmrxujbChNr+YdWMo20rnuA==
   dependencies:
-    "@babel/helper-module-imports" "^7.0.0-beta.49"
-    "@babel/types" "^7.0.0-beta.49"
+    "@babel/helper-module-imports" "^7.0.0"
+    "@babel/types" "^7.23.0"
     glob "^7.1.1"
     lodash "^4.17.10"
     require-package-name "^2.0.1"

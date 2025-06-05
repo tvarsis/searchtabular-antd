@@ -1,97 +1,76 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _multipleColumns = require('./multiple-columns');
-
-Object.defineProperty(exports, 'multipleColumns', {
+Object.defineProperty(exports, "Columns", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_multipleColumns).default;
+    return _searchColumns["default"];
   }
 });
-
-var _singleColumn = require('./single-column');
-
-Object.defineProperty(exports, 'singleColumn', {
+Object.defineProperty(exports, "Field", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_singleColumn).default;
+    return _field["default"];
   }
 });
-
-var _columnMatches = require('./_column-matches');
-
-Object.defineProperty(exports, '_columnMatches', {
+Object.defineProperty(exports, "_columnMatches", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_columnMatches).default;
+    return _columnMatches["default"];
   }
 });
-
-var _matches = require('./matches');
-
-Object.defineProperty(exports, 'matches', {
+Object.defineProperty(exports, "highlightCell", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_matches).default;
+    return _highlightCell["default"];
   }
 });
-
-var _strategies = require('./strategies');
-
-Object.defineProperty(exports, 'strategies', {
+Object.defineProperty(exports, "highlightValue", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_strategies).default;
+    return _highlightValue["default"];
   }
 });
-
-var _highlighter = require('./highlighter');
-
-Object.defineProperty(exports, 'highlighter', {
+Object.defineProperty(exports, "highlighter", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_highlighter).default;
+    return _highlighter["default"];
   }
 });
-
-var _highlightCell = require('./formatters/highlight-cell');
-
-Object.defineProperty(exports, 'highlightCell', {
+Object.defineProperty(exports, "matches", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_highlightCell).default;
+    return _matches["default"];
   }
 });
-
-var _highlightValue = require('./formatters/highlight-value');
-
-Object.defineProperty(exports, 'highlightValue', {
+Object.defineProperty(exports, "multipleColumns", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_highlightValue).default;
+    return _multipleColumns["default"];
   }
 });
-
-var _searchColumns = require('./components/search-columns');
-
-Object.defineProperty(exports, 'Columns', {
+Object.defineProperty(exports, "singleColumn", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_searchColumns).default;
+    return _singleColumn["default"];
   }
 });
-
-var _field = require('./components/field');
-
-Object.defineProperty(exports, 'Field', {
+Object.defineProperty(exports, "strategies", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_field).default;
+    return _strategies["default"];
   }
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _multipleColumns = _interopRequireDefault(require("./multiple-columns"));
+var _singleColumn = _interopRequireDefault(require("./single-column"));
+var _columnMatches = _interopRequireDefault(require("./_column-matches"));
+var _matches = _interopRequireDefault(require("./matches"));
+var _strategies = _interopRequireDefault(require("./strategies"));
+var _highlighter = _interopRequireDefault(require("./highlighter"));
+var _highlightCell = _interopRequireDefault(require("./formatters/highlight-cell"));
+var _highlightValue = _interopRequireDefault(require("./formatters/highlight-value"));
+var _searchColumns = _interopRequireDefault(require("./components/search-columns"));
+var _field = _interopRequireDefault(require("./components/field"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
