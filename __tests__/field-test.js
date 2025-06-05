@@ -3,8 +3,8 @@ import React from "react";
 import TestUtils from "react-dom/test-utils";
 import { Field } from "../src";
 
-describe("search.Field", function() {
-  it("does not have all option with a single column", function() {
+describe("search.Field", function () {
+  it("does not have all option with a single column", function () {
     const columns = [
       {
         property: "first",
@@ -28,7 +28,7 @@ describe("search.Field", function() {
   });
 
   it(`has a dropdown that contains columns
-    which have both property and header`, function() {
+    which have both property and header`, function () {
     const columns = [
       {
         property: "first",
@@ -60,7 +60,7 @@ describe("search.Field", function() {
     expect(options[1].textContent).toEqual(columns[0].header.label);
   });
 
-  it("accepts column", function() {
+  it("accepts column", function () {
     const expectedColumn = "column";
     const columns = [
       {
@@ -81,7 +81,7 @@ describe("search.Field", function() {
     expect(select.value).toEqual(expectedColumn);
   });
 
-  it("yields results", function() {
+  it("yields results", function () {
     const columns = [
       {
         property: "first",
@@ -101,7 +101,7 @@ describe("search.Field", function() {
     TestUtils.Simulate.change(input);
   });
 
-  it("yields zero results", function() {
+  it("yields zero results", function () {
     const columns = [
       {
         property: "first",
@@ -121,7 +121,7 @@ describe("search.Field", function() {
     TestUtils.Simulate.change(input);
   });
 
-  it("supports i18n", function() {
+  it("supports i18n", function () {
     const columns = [
       {
         property: "first",
@@ -149,7 +149,7 @@ describe("search.Field", function() {
     expect(option.text).toEqual(expected);
   });
 
-  it("supports custom filter input renderers", function() {
+  it("supports custom filter input renderers", function () {
     const columns = [
       {
         property: "first",
@@ -172,14 +172,14 @@ describe("search.Field", function() {
         <Field columns={columns} renderers={{ filter: CustomField }} />
       </Wrapper>
     );
-    const input = TestUtils.scryRenderedDOMComponentsWithTag(search, "textfield");
+    const input = TestUtils.scryRenderedDOMComponentsWithTag(search, "input");
     input.value = value;
 
     expect(input.length).toBe(1);
     expect(input.value).toBe(value);
   });
 
-  it("supports custom select column filtering renderers", function() {
+  it("supports custom select column filtering renderers", function () {
     const columns = [
       {
         property: "first",
@@ -221,7 +221,7 @@ class Wrapper extends React.Component {
   }
 }
 
-const CustomField = props => <textfield className="CustomField" {...props} />;
+const CustomField = (props) => <input className="CustomField" {...props} />;
 const CustomSelect = ({ options, onChange }) => (
   <div>
     <input className="controlled-field" type="text" onChange={onChange} defaultValue="all" />
