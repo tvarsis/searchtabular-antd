@@ -1,23 +1,19 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _columnMatches2 = require('./_column-matches');
-
-var _columnMatches3 = _interopRequireDefault(_columnMatches2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+exports["default"] = void 0;
+var _columnMatches2 = _interopRequireDefault(require("./_column-matches"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var singleColumn = function singleColumn(_ref) {
   var castingStrategy = _ref.castingStrategy,
-      columns = _ref.columns,
-      _ref$searchColumn = _ref.searchColumn,
-      searchColumn = _ref$searchColumn === undefined ? 'all' : _ref$searchColumn,
-      query = _ref.query,
-      strategy = _ref.strategy,
-      transform = _ref.transform;
+    columns = _ref.columns,
+    _ref$searchColumn = _ref.searchColumn,
+    searchColumn = _ref$searchColumn === void 0 ? 'all' : _ref$searchColumn,
+    query = _ref.query,
+    strategy = _ref.strategy,
+    transform = _ref.transform;
   return function (rows) {
     if (!query && query !== false && query !== null) {
       return rows;
@@ -30,12 +26,16 @@ var singleColumn = function singleColumn(_ref) {
     }
     return rows.filter(function (row) {
       return ret.filter(function (column) {
-        return (0, _columnMatches3.default)({
-          query: query, castingStrategy: castingStrategy, column: column, strategy: strategy, transform: transform, row: row
+        return (0, _columnMatches2["default"])({
+          query: query,
+          castingStrategy: castingStrategy,
+          column: column,
+          strategy: strategy,
+          transform: transform,
+          row: row
         });
       }).length > 0;
     });
   };
 };
-
-exports.default = singleColumn;
+var _default = exports["default"] = singleColumn;

@@ -21,12 +21,25 @@ function renderCheckbox(column, query, onCheckChange) {
       style={{ width: "100%" }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
-      defaultValue={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
-      value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
+      aria-label={column.header?.label || column.property}
+      defaultValue={
+        query[column.property] === undefined
+          ? undefined
+          : query[column.property] === null
+          ? "null"
+          : query[column.property]
+      }
+      value={
+        query[column.property] === undefined
+          ? undefined
+          : query[column.property] === null
+          ? "null"
+          : query[column.property]
+      }
       onChange={value => onCheckChange(column.property, value)}>
       <Option value={true}>{intl.get("shared.true")}</Option>
       <Option value={false}>{intl.get("shared.false")}</Option>
-      <Option value={'null'}>{intl.get("shared.undefined")}</Option>
+      <Option value={"null"}>{intl.get("shared.undefined")}</Option>
     </Select>
   ) : (
     ""
@@ -40,7 +53,14 @@ function renderDropDown(column, query, onDropDownChange) {
       style={{ width: "100%" }}
       name={column.property}
       placeholder={column.filterPlaceholder || ""}
-      value={query[column.property] === undefined ? undefined : (query[column.property] === null) ? 'null' : query[column.property]}
+      aria-label={column.header?.label || column.property}
+      value={
+        query[column.property] === undefined
+          ? undefined
+          : query[column.property] === null
+          ? "null"
+          : query[column.property]
+      }
       onChange={value => onDropDownChange(column.property, value)}>
       {column.options &&
         column.options.map((fieldTypeOption, index) => (
@@ -96,6 +116,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
           min={NUMBER_MIN}
           max={NUMBER_MAX}
           onChange={value => onMinNumberChange(column.property, value)}
+          aria-label={column.header?.label || column.property}
         />
       </div>
       <div style={{ marginTop: 10 }}>
@@ -107,6 +128,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
           min={NUMBER_MIN}
           max={NUMBER_MAX}
           onChange={value => onMaxNumberChange(column.property, value)}
+          aria-label={column.header?.label || column.property}
         />
       </div>
     </div>
@@ -190,6 +212,7 @@ const TextFilterWithTooltip = ({ column, query, onQueryChange, tooltipTitle, sho
         placeholder={column.filterPlaceholder || ""}
         value={inputValue}
         maxLength={TEXT_MAX_LENGTH}
+        aria-label={column.header?.label || column.property}
       />
     </Tooltip>
   );
@@ -295,8 +318,6 @@ const SearchColumns = ({ columns, query, onChange, tooltipTitle, shouldOpenToolt
       });
     }
   };
-
-
 
   return (
     <tr>
