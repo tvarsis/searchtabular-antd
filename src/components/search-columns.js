@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import DatePicker from "antd/lib/date-picker";
 import Input from "antd/lib/input";
@@ -137,8 +137,7 @@ function renderNumber(column, query, onMinNumberChange, onMaxNumberChange) {
   );
 }
 
-function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip) {
-  const showTooltip = shouldOpenTooltip(query[column.property]);
+function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip, tooltipWikiLink) {
   return column &&
     column.property &&
     !column.checkbox &&
@@ -146,26 +145,84 @@ function renderText(column, query, onQueryChange, tooltipTitle, shouldOpenToolti
     column.type !== "date" &&
     column.type !== "number" &&
     column.type !== "dropdown" ? (
-    <Tooltip title={tooltipTitle} open={showTooltip}>
-      <Input
-        onChange={onQueryChange}
-        name={column.property}
-        placeholder={column.filterPlaceholder || ""}
-        value={query[column.property] || ""}
-        maxLength={TEXT_MAX_LENGTH}
-        aria-label={column.header?.label || column.property}
-      />
-    </Tooltip>
+    <TextFilterWithTooltip
+      column={column}
+      query={query}
+      onQueryChange={onQueryChange}
+      tooltipTitle={tooltipTitle}
+      shouldOpenTooltip={shouldOpenTooltip}
+      tooltipWikiLink={tooltipWikiLink}
+    />
   ) : (
     ""
   );
 }
 
+const TextFilterWithTooltip = ({ column, query, onQueryChange, tooltipTitle, shouldOpenTooltip, tooltipWikiLink }) => {
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const timerIdRef = useRef(null);
+  const inputValue = query[column.property] || "";
+
+  useEffect(() => {
+    clearTimeout(timerIdRef.current);
+
+    if (shouldOpenTooltip(inputValue)) {
+      setTooltipVisible(true);
+      timerIdRef.current = setTimeout(() => {
+        setTooltipVisible(false);
+      }, 5000);
+    } else {
+      setTooltipVisible(false);
+    }
+
+    return () => {
+      clearTimeout(timerIdRef.current);
+    };
+  }, [inputValue, shouldOpenTooltip]);
+
+  const handleMouseEnter = () => {
+    // When the mouse enters the tooltip content, clear the hide timer and keep the tooltip visible
+    clearTimeout(timerIdRef.current);
+  };
+
+  const handleMouseLeave = () => {
+    timerIdRef.current = setTimeout(() => {
+      setTooltipVisible(false);
+    }, 5000);
+  };
+
+  const tooltipContent = (
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {tooltipTitle}
+      {tooltipWikiLink && (
+        <div>
+          <a href={tooltipWikiLink} target="_blank" rel="noopener noreferrer">
+            {intl.get("shared.clickForDetails")}
+          </a>
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <Tooltip title={tooltipContent} open={tooltipVisible}>
+      <Input
+        onChange={onQueryChange}
+        name={column.property}
+        placeholder={column.filterPlaceholder || ""}
+        value={inputValue}
+        maxLength={TEXT_MAX_LENGTH}
+        aria-label={column.header?.label || column.property}
+      />
+    </Tooltip>
+  );
+};
+
 function renderReactElement(column) {
   return column && column.property && column.type === "reactElement" ? <div>{column.reactElement}</div> : "";
 }
 
-const SearchColumns = ({ columns, query, onChange, tooltipTitle, shouldOpenTooltip }) => {
+const SearchColumns = ({ columns, query, onChange, tooltipTitle, shouldOpenTooltip, tooltipWikiLink }) => {
   const onQueryChange = event => {
     onChange({
       ...query,
@@ -270,7 +327,7 @@ const SearchColumns = ({ columns, query, onChange, tooltipTitle, shouldOpenToolt
           {renderCheckbox(column, query, onCheckChange)}
           {renderDate(column, query, onMinDateChange, onMaxDateChange)}
           {renderNumber(column, query, onMinNumberChange, onMaxNumberChange)}
-          {renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip)}
+          {renderText(column, query, onQueryChange, tooltipTitle, shouldOpenTooltip, tooltipWikiLink)}
           {renderDropDown(column, query, onDropDownChange)}
         </th>
       ))}
@@ -283,12 +340,14 @@ SearchColumns.propTypes = {
   onChange: PropTypes.func.isRequired,
   query: PropTypes.object,
   tooltipTitle: PropTypes.string,
-  shouldOpenTooltip: PropTypes.func
+  shouldOpenTooltip: PropTypes.func,
+  tooltipWikiLink: PropTypes.string
 };
 
 SearchColumns.defaultProps = {
   query: {},
-  shouldOpenTooltip: () => false
+  shouldOpenTooltip: () => false,
+  tooltipWikiLink: "#"
 };
 
 export default SearchColumns;
