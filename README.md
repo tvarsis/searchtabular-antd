@@ -2,51 +2,6 @@
 
 Searchtabular comes with search helpers. It consists of search algorithms that can be applied to the rows. Just like with sorting, you have to apply it to the rows just before rendering. A column is considered searchable in case it has a unique `property` defined.
 
-## Searchtabular Antd
-
-The original Searchtabular package has only one type of filter - text filter. Date filter, number filter, boolean filter was not possible. To implement these advanced filters, the searchtabular-antd package uses antd renderers.
-
-- Input - text filter
-- InputNumber - range filter for numbers
-- DatePicker - date filter
-- Checkbox - boolean filter
-
-To use range filter for numbers, use the following column definition:
-
-```javascript
-{
-  property: 'age',
-  header: {
-    label: 'Age'
-  },
-  type: 'number'
-}
-```
-
-To use date filter, use the following column definition:
-
-```javascript
-{
-  property: 'date_updated',
-  header: {
-    label: 'Date Updated'
-  },
-  type: 'date'
-}
-```
-
-To use boolean filter, use the following column definition:
-
-```javascript
-{
-  property: 'is_device',
-  header: {
-    label: 'Is Device'
-  },
-  checkbox: true
-}
-```
-
 ## Searchtabular (reactabular)
 
 The sections below belong to the ReadMe of [Searchtabular package](https://github.com/reactabular/searchtabular.git).
@@ -56,11 +11,11 @@ The sections below belong to the ReadMe of [Searchtabular package](https://githu
 The search API consists of three parts. Out of these `search.multipleColumns` and `search.matches` are the most useful ones for normal usage. If the default search strategies aren't enough, it's possible to implement more as long as you follow the same interface.
 
 ```javascript
-import * as search from "searchtabular";
+import * as search from "searchtabular-antd";
 
 // Or you can cherry-pick
-import { multipleColumns } from "searchtabular";
-import { multipleColumns as searchMultipleColumns } from "searchtabular";
+import { multipleColumns } from "searchtabular-antd";
+import { multipleColumns as searchMultipleColumns } from "searchtabular-antd";
 ```
 
 ### Search
@@ -117,7 +72,7 @@ To make it possible to highlight search results per column, there's a specific `
 
 The general workflow goes as follows:
 
-1. Set up a `Search` control that outputs a query in `{<column>: <query>}` format. If `<column>` is `all`, then the search will work against all columns. Otherwise it will respect the exact columns set. You'll most likely want to use either `reactabular-search-field` or `reactabular-search-columns` (or both) for this purpose or provide an implementation of your own if you are not using Reactabular.
+1. Set up a `Search` control that outputs a query in `{<column>: <query>}` format. If `<column>` is `all`, then the search will work against all columns. Otherwise it will respect the exact columns set. You can use `searchtabular.Field` for this purpose or provide an implementation of your own.
 2. Before rendering the rows, perform `search.multipleColumns({ columns, query })(rows)`. This will filter the rows based on the passed `rows`, `columns` definition, and `query`. A lazy way to do this is to filter at `render()` although you can do it elsewhere too to optimize rendering.
 3. Pass the filtered rows to `Table`.
 
@@ -137,7 +92,7 @@ import React from 'react';
 import { compose } from 'redux';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
-import * as search from 'searchtabular';
+import * as search from 'searchtabular-antd';
 */
 
 class HighlightTable extends React.Component {
@@ -266,121 +221,7 @@ class HighlightTable extends React.Component {
 
 ## Components
 
-`searchtabular` provides a couple of convenience renderers listed below.
-
-### Searching Columns
-
-`searchtabular.Columns` is a single component you can inject within a table header to allow searching per column. It expects `columns` and `onChange` handler. The latter is used to update the search query based on the search protocol.
-
-## How to Use?
-
-Consider the example below.
-
-**Example:**
-
-```jsx
-/*
-import React from 'react';
-import * as Table from 'reactabular-table';
-import * as resolve from 'table-resolver';
-import * as search from 'searchtabular';
-*/
-
-class SearchColumnsTable extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      query: {}, // Search query
-      columns: [
-        {
-          header: {
-            label: "Name"
-          },
-          children: [
-            {
-              property: "name.first",
-              header: {
-                label: "First Name"
-              }
-            },
-            {
-              property: "name.last",
-              header: {
-                label: "Last Name"
-              }
-            }
-          ]
-        },
-        {
-          property: "age",
-          header: {
-            label: "Age"
-          }
-        }
-      ],
-      rows: [
-        {
-          id: 100,
-          name: {
-            first: "Adam",
-            last: "West"
-          },
-          age: 10
-        },
-        {
-          id: 101,
-          name: {
-            first: "Brian",
-            last: "Eno"
-          },
-          age: 43
-        },
-        {
-          id: 103,
-          name: {
-            first: "Jake",
-            last: "Dalton"
-          },
-          age: 33
-        },
-        {
-          id: 104,
-          name: {
-            first: "Jill",
-            last: "Jackson"
-          },
-          age: 63
-        }
-      ]
-    };
-  }
-  render() {
-    const { columns, query, rows } = this.state;
-    const resolvedColumns = resolve.columnChildren({ columns });
-    const resolvedRows = resolve.resolve({
-      columns: resolvedColumns,
-      method: resolve.nested
-    })(rows);
-    const searchedRows = search.multipleColumns({
-      columns: resolvedColumns,
-      query
-    })(resolvedRows);
-
-    return (
-      <Table.Provider columns={resolvedColumns}>
-        <Table.Header headerRows={resolve.headerRows({ columns })}>
-          <search.Columns query={query} columns={resolvedColumns} onChange={query => this.setState({ query })} />
-        </Table.Header>
-
-        <Table.Body rows={searchedRows} rowKey="id" />
-      </Table.Provider>
-    );
-  }
-}
-
-<SearchColumnsTable />;
-```
+`searchtabular` provides the convenience renderers listed below.
 
 ### Searching Through a Single Field
 
@@ -400,7 +241,7 @@ Consider the example below.
 import React from 'react';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
-import * as search from 'searchtabular';
+import * as search from 'searchtabular-antd';
 import { CustomField, CustomSelect } from './path/to/your/component';
 */
 
